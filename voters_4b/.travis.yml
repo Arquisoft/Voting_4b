@@ -1,0 +1,9 @@
+language: java
+jdk:
+- oraclejdk8
+notifications:
+  slack: voters4b:uWhdxeOQHUm6UfdZipu09cFz
+before_install:
+  - pip install --user codecov
+after_success:
+  - codecov

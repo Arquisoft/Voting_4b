@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div th:replace="fragments/header :: cabecera"></div>
+	
+	<div align="center">
+		<h2>Votar</h2>
+		<form id="votar-form" action="#" th:action="@{/votar}" method="post"
+			th:object="${voto}">
+
+
+			<br></br> <br></br> <br></br> <label class="lista_partidos"
+				for="lista_partidos">Lista de partidos políticos: </label>
+
+
+			<div class="tabla_partidos">
+				<table>
+					<tr th:each="partido : ${partidos}">
+						<td th:text="${partido.name()}"></td>
+					</tr>
+				</table>
+			</div>
+
+
+			<input class="input_siglas_partido" placeholder="Partido" type="text"
+				th:field="*{partidoPolitico}" />
+
+			<button type="submit" class="boton_votar">VOTAR</button>
+		</form>
+	</div>
+	
+	<div  th:if="${mensaje != null}" class="mensaje" align="center">
+		 <p class="mostrar_mensaje" th:text="${mensaje}"></p>
+	</div>
+
+	<input type="button" class="icono_return" onclick="history.back()"
+		name="volver_atras" value="&#8617;" />
+</body>
+</html>
