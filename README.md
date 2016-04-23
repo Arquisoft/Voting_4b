@@ -7,3 +7,7 @@ Voting System
 [![codecov.io](https://codecov.io/github/Arquisoft/Voting_4b/coverage.svg?branch=master)](https://codecov.io/github/Arquisoft/Voting_4b?branch=master)
 
 
+* Darío González
+* Mónica Cueva González
+* Pamela Fernández
+* Raúl Rodríguez
