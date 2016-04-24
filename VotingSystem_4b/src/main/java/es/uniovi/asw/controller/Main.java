@@ -1,9 +1,8 @@
 package es.uniovi.asw.controller;
 
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +44,12 @@ public class Main {
 
 		return new ModelAndView("index");
 	}
+	
 
 	@RequestMapping(value = "/votar")
-	public String votar(Voto voto, @ModelAttribute("partidoPolitico") String partidoPolitico, Model model) {
+	public String votar(Voto voto,
+			@ModelAttribute("partidoPolitico") String partidoPolitico,
+			Model model) {
 
 		List<PartidoPolitico> partidos = new ArrayList<PartidoPolitico>();
 		for (PartidoPolitico p : PartidoPolitico.values()) {
@@ -58,7 +60,9 @@ public class Main {
 	}
 
 	@RequestMapping(value = "/votar", method = RequestMethod.POST)
-	public String saveVote(Voto voto,@ModelAttribute("partidoPolitico") String partidoPolitico, Model model) {
+	public String saveVote(Voto voto,
+			@ModelAttribute("partidoPolitico") String partidoPolitico,
+			Model model) {
 
 		List<PartidoPolitico> partidos = new ArrayList<PartidoPolitico>();
 		for (PartidoPolitico p : PartidoPolitico.values()) {
@@ -76,7 +80,7 @@ public class Main {
 			// voter.getNif());
 			return "/votar";
 		}
-		boolean encontrado=false;
+		boolean encontrado = false;
 
 		for (PartidoPolitico p : PartidoPolitico.values()) {
 			if (p.toString().equals(partidoPolitico)) {
@@ -86,7 +90,7 @@ public class Main {
 				LOG.info("Se ha añadido un nuevo voto");
 				// voterRepository.setEjercioDerechoAlVotoFor(true,
 				// voter.getNif());
-				encontrado=true;
+				encontrado = true;
 				return "/votar";
 			}
 		}
@@ -100,11 +104,12 @@ public class Main {
 			// voter.getNif());
 			return "/votar";
 
-		}else{
-			if(encontrado==false){
+		} else {
+			if (encontrado == false) {
 				Voto v = new Voto(null, null, false, true, false);
 				votoRepository.save(v);
-				model.addAttribute("mensaje", "Ha votado correctamente: voto nulo");
+				model.addAttribute("mensaje",
+						"Ha votado correctamente: voto nulo");
 				LOG.info("Se ha añadido un nuevo voto nulo");
 				// voterRepository.setEjercioDerechoAlVotoFor(true,
 				// voter.getNif());
@@ -113,29 +118,22 @@ public class Main {
 			return "/votar";
 		}
 
-
 	}
 
 	@RequestMapping(value = "/modificar_elecciones")
-	public String modificar(Elecciones elecciones, String fechaInicio,
-			String fechaFin, Model model) {
+	public String modificar(Elecciones elecciones, Model model) {
 		LOG.info("Modificar elecciones page access");
 		return "/modificar_elecciones";
 	}
 
 	@RequestMapping(value = "/modificar_elecciones", method = RequestMethod.POST)
-	public String addElecciones(Elecciones elecciones, String fechaInicio,
-			String fechaFin, Model model) {
+	public String addElecciones(Elecciones elecciones, Model model) {
 		LOG.info("Modificar elecciones page access");
-
-		if (elecciones.getNombre() == null || elecciones.getOpciones() == null
-				|| fechaInicio == null || fechaFin == null 
-				|| elecciones.getFechaFin().before(elecciones.getFechaInicio())) {
-			model.addAttribute("mensaje", "Por favor, rellene todos los campos");
-			LOG.info("No se han podido convocar nuevas elecciones");
-			return "/modificar_elecciones";
-
-		} else {
+		try{
+		if (elecciones.getNombre() != null && elecciones.getOpciones() != null
+				&& elecciones.getFechaInicio() instanceof Date && elecciones.getFechaFin() instanceof Date
+				&& elecciones.getFechaFin().after(elecciones.getFechaInicio())) {
+			
 			
 			List<Elecciones> listaElecciones = eleccionesRepository.findAll();
 			if (listaElecciones != null && !listaElecciones.isEmpty()) {
@@ -155,7 +153,7 @@ public class Main {
 						return "/modificar_elecciones";
 					}
 				}
-			} else {
+			}else{
 				Elecciones eleccion = new Elecciones(elecciones.getNombre(),
 						elecciones.getFechaInicio(), elecciones.getFechaFin(),
 						elecciones.getOpciones());
@@ -167,8 +165,19 @@ public class Main {
 						+ elecciones.getNombre());
 				return "/modificar_elecciones";
 			}
+		}else{
+			
+			model.addAttribute("mensaje", "Por favor, rellene todos los campos");
+			LOG.info("No se han podido convocar nuevas elecciones");
+			return "/modificar_elecciones";
+
+		} 
+		}catch(Exception e){
+			model.addAttribute("mensaje", "Por favor, rellene todos los campos");
+			LOG.info("No se han podido convocar nuevas elecciones");
 			return "/modificar_elecciones";
 		}
+		return "/modificar_elecciones";
 	}
 
 	@RequestMapping(value = "/add_colegio")
