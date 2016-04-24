@@ -84,6 +84,33 @@ public class BDTest {
 	
 	
 	@Test
+	public void testSetElecciones() throws Exception {
+
+		Date fechaInicio=null;
+		Date fechaFin = null;
+		Date fechaInicio2=null;
+		Date fechaFin2 = null;
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		String fecha1 = "15/06/2016 09:00";
+		String fecha2 = "15/06/2016 20:00";
+		String fecha11 = "20/06/2016 09:00";
+		String fecha22 = "20/06/2016 20:00";
+		fechaInicio = formato.parse(fecha1);
+		fechaFin = formato.parse(fecha2);
+		fechaInicio2 = formato.parse(fecha11);
+		fechaFin2 = formato.parse(fecha22);
+		
+		Elecciones e = new Elecciones("Referendum", fechaInicio, fechaFin, "Opciones");
+		
+		e.setFechaInicio(fechaInicio2);
+		e.setFechaFin(fechaFin2);
+		e.setNombre("Otras elecciones");
+		e.setOpciones("Ninguna");
+		
+		assertEquals("Otras elecciones", e.getNombre());
+	}
+	
+	@Test
 	public void testFindEleccionesByNombre(){
 		assertEquals(eleccionesElectorales.getNombre(), er.findByNombre("Referendum").getNombre());
 	}
@@ -93,14 +120,48 @@ public class BDTest {
 		assertEquals(1, er.findAll().size());
 	}
 	
+	
+	@Test
+	public void testSetColegio(){
+		ColegioElectoral c = new ColegioElectoral(1000,"Cantabria","Cantabria");
+		c.setCircunscripcion("Asturias");
+		c.setCodigoColegio(200);
+		c.setComunidadAutonoma("Principado de Asturias");
+		assertEquals(200,c.getCodigoColegio());
+	}
+	
 	@Test
 	public void testFindAllColegios(){
 		assertEquals(3, cr.findAll().size());
 	}
 	
 	@Test
+	public void testSetVoto(){
+		ColegioElectoral c3 = new ColegioElectoral(1000,"Cantabria","Cantabria");
+		Voto v = new Voto(c3, PartidoPolitico.Ciudadanos.toString(), false, false, false);
+		v.setBlanco(true);
+		v.setPartidoPolitico("");
+		v.setContabilizado(false);
+		v.setNulo(false);
+		assertEquals("", v.getPartidoPolitico());
+	}
+	
+	@Test
 	public void testFindAllVotos(){
 		assertEquals(4, votor.findAll().size());
+	}
+	
+	@Test
+	public void testSetVoter(){
+		assertEquals("Monica Cueva", vr.findByNif("12151651s").getNombre());
+		Voter v = vr.findByNif("12151651s");
+		v.setNombre("Maria");
+		v.setNif("2165165");
+		v.setEjercioDerechoAlVoto(false);
+		v.setCodigoColegio(222);
+		v.setClave("1554");
+		v.setUsuario("maria");
+		assertNotEquals(vr.findByNif("12151651s"), v);
 	}
 	
 	/**
