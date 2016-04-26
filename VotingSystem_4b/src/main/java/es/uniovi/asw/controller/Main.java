@@ -96,8 +96,14 @@ public class Main {
 			model.addAttribute("mensaje",
 					"Ha votado correctamente: voto en blanco");
 			LOG.info("Se ha añadido un nuevo voto en blanco");
-			// voterRepository.setEjercioDerechoAlVotoFor(true,
-			// voter.getNif());
+			if(session.getAttribute("usuario")!=null){
+				Voter voter = voterRepository.findByUsuario((String)session.getAttribute("usuario"));
+				if(voter!=null){
+					voterAccess.updateEjercioDerechoAlVoto(true, voter.getNif());
+					LOG.info(voter.toString());
+				}
+			}
+
 			return "/votar";
 		}
 		boolean encontrado = false;
@@ -108,9 +114,15 @@ public class Main {
 				votoRepository.save(v);
 				model.addAttribute("mensaje", "Ha votado correctamente");
 				LOG.info("Se ha añadido un nuevo voto");
-				// voterRepository.setEjercioDerechoAlVotoFor(true,
-				// voter.getNif());
+				if(session.getAttribute("usuario")!=null){
+					Voter voter = voterRepository.findByUsuario((String)session.getAttribute("usuario"));
+					if(voter!=null){
+						voterAccess.updateEjercioDerechoAlVoto(true, voter.getUsuario());
+						LOG.info(voter.toString());
+					}
+				}
 				encontrado = true;
+				
 				return "/votar";
 			}
 		}
@@ -120,8 +132,13 @@ public class Main {
 			model.addAttribute("mensaje",
 					"Ha votado correctamente: voto en blanco");
 			LOG.info("Se ha añadido un nuevo voto en blanco");
-			// voterRepository.setEjercioDerechoAlVotoFor(true,
-			// voter.getNif());
+			if(session.getAttribute("usuario")!=null){
+				Voter voter = voterRepository.findByUsuario((String)session.getAttribute("usuario"));
+				if(voter!=null){
+					voterAccess.updateEjercioDerechoAlVoto(true, voter.getUsuario());
+					LOG.info(voter.toString());
+				}
+			}
 			return "/votar";
 
 		} else {
@@ -131,8 +148,13 @@ public class Main {
 				model.addAttribute("mensaje",
 						"Ha votado correctamente: voto nulo");
 				LOG.info("Se ha añadido un nuevo voto nulo");
-				// voterRepository.setEjercioDerechoAlVotoFor(true,
-				// voter.getNif());
+				if(session.getAttribute("usuario")!=null){
+					Voter voter = voterRepository.findByUsuario((String)session.getAttribute("usuario"));
+					if(voter!=null){
+						voterAccess.updateEjercioDerechoAlVoto(true, voter.getUsuario());
+						LOG.info(voter.toString());
+					}
+				}
 				return "/votar";
 			}
 			return "/votar";

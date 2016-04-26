@@ -4,19 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Component;
 
+import es.uniovi.asw.dbupdate.VoterRepository;
 import es.uniovi.asw.modelo.ServerResponse;
 import es.uniovi.asw.modelo.Voter;
 
 @Component("voterAccess")
-public class VoterAcces implements GetVoterInfo, ChangePassword {
+public class VoterAcces implements GetVoterInfo, ChangePassword, ChangeVotar {
 
 	@Autowired
-	private DBManagement repository;
+	private VoterRepository repository;
 
 	public VoterAcces() {
 	}
 
-	public VoterAcces(DBManagement userRepository) {
+	public VoterAcces(VoterRepository userRepository) {
 		this.repository = userRepository;
 
 	}
@@ -42,6 +43,15 @@ public class VoterAcces implements GetVoterInfo, ChangePassword {
 		user.setClave(newPassword);
 		this.repository.save(user);
 
+	}
+
+	@Override
+	public void updateEjercioDerechoAlVoto(boolean ejercioDerechoAlVoto,
+			String usuario) {
+		Voter voter = this.repository.findByUsuario(usuario);
+		voter.setEjercioDerechoAlVoto(ejercioDerechoAlVoto);
+		this.repository.save(voter);
+		
 	}
 
 }

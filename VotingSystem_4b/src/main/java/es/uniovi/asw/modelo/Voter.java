@@ -203,7 +203,7 @@ public class Voter {
 	public String toString() {
 		return "Voter [nombre=" + nombre + ", email=" + email + ", nif=" + nif
 				+ ", codigoColegio=" + codigoColegio + ", usuario=" + usuario
-				+ ", clave=" + clave + ", ejercioDerechoAlVoto="
+				+ ", clave=" + "****" + ", ejercioDerechoAlVoto="
 				+ ejercioDerechoAlVoto + "]";
 	}
 
