@@ -86,7 +86,7 @@ a.tooltip:hover span {
 	font-family: futura;
 }
 
-.boton_add_colegio, .boton_colegio {
+.boton_add_colegio, .boton_colegio ,.boton_login {
 	font-size: 17px;
 	text-decoration: none;
 	padding: 0.50em 1.10em 0.50em 1.50em;
@@ -106,13 +106,19 @@ a:-webkit-any-link {
 }
 
 button.boton_votar:hover, button.boton_modificar:hover, a.boton_add_colegio:hover,
-	button.boton_colegio:hover {
+	button.boton_colegio:hover, button.boton_login:hover {
 	background: #310B54;
 }
 
-.input_siglas_partido {
+.input_siglas_partido, #field1 {
 	margin-top: 5%;
 }
+
+#field2, .boton_login{
+	margin-top:1%;
+}
+
+
 
 .input_siglas_partido {
 	color: #734A99;
@@ -140,7 +146,7 @@ button.boton_votar:hover, button.boton_modificar:hover, a.boton_add_colegio:hove
 	margin-right: 10px;
 }
 
-.cod_colegio {
+.cod_colegio, #field1, #field2 {
 	color: #734A99;
 	outline: none;
 	border: none;
@@ -166,17 +172,18 @@ button.boton_votar:hover, button.boton_modificar:hover, a.boton_add_colegio:hove
 input.input_siglas_partido:focus, input.nombre_elecciones:focus, input.opciones_voto:focus,
 	input.fecha_inicial:focus, input.fecha_final:focus, input.hora_inicial:focus,
 	input.hora_final:focus, input.nombre_partido:focus, input.cod_colegio:focus,
-	input.circunscripcion_colegio:focus, input.ca_colegio:focus {
+	input.circunscripcion_colegio:focus, input.ca_colegio:focus, input#field1:focus,  input#field2:focus {
 	box-shadow: 10px 2px 50px #000;
 	transform: scale(1.5, 1.5);
 }
 
 .etiqueta_fecha_inicial, .etiqueta_fecha_final, .lista_partidos,
-	.etiqueta_cod_colegio {
+	.etiqueta_cod_colegio, .etiqueta_email, .etiqueta_password{
 	font-size: 25px;
 	font-weight: 100;
 	color: #eee;
 }
+
 
 .lista_partidos, .etiqueta_cod_colegio {
 	font-size: 18px;
@@ -217,4 +224,4 @@ input[name=volver_atras] {
 	font-weight: 100;
 	color: #eee;
 	font-size: 18px;
-}
+}}
