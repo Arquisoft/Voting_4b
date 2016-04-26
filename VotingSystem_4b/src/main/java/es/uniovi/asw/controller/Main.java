@@ -71,6 +71,27 @@ public class Main {
 			@ModelAttribute("partidoPolitico") String partidoPolitico,
 			Model model) {
 
+		
+		List<Elecciones> elecciones = eleccionesRepository.findAll();
+		if(!elecciones.isEmpty()){
+			Elecciones e = elecciones.get(0);
+			Date hoy = new Date();
+			if(e.getFechaInicio().after(hoy)){
+				model.addAttribute("mensaje",
+						"Por favor, espere a que se inicien las elecciones");
+				return "esperarElecciones";
+			}else if(e.getFechaFin().before(hoy)){
+				model.addAttribute("mensaje",
+						"Las elecciones ya han finalizado, espere a unas nuevas elecciones");
+				return "esperarElecciones";
+			}
+		}else{
+			model.addAttribute("mensaje",
+					"Aún no se han añadido elecciones."
+					+ "Por favor, espere a unas nuevas elecciones.");
+			return "esperarElecciones";
+		}
+		
 		List<PartidoPolitico> partidos = new ArrayList<PartidoPolitico>();
 		for (PartidoPolitico p : PartidoPolitico.values()) {
 			partidos.add(p);
@@ -89,6 +110,20 @@ public class Main {
 			partidos.add(p);
 		}
 		model.addAttribute("partidos", partidos);
+
+		
+		if(session.getAttribute("usuario")!=null){
+			Voter voter = voterRepository.findByUsuario((String)session.getAttribute("usuario"));
+			if(voter!=null){
+				if(voter.isEjercioDerechoAlVoto()){
+					LOG.info("El usuario " + voter.getUsuario() + " ya ha votado");
+					model.addAttribute("mensaje",
+							"No puede votar, porque ya ha votado anteriormente");
+					return "/votar";
+				}
+				
+			}
+		}
 
 		if (partidoPolitico == null) {
 			Voto v = new Voto(null, null, false, false, true);
