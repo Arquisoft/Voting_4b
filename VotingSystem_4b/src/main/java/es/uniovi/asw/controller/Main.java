@@ -3,16 +3,23 @@ package es.uniovi.asw.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.uniovi.asw.UserInfo;
+import es.uniovi.asw.modelo.Gizmo;
+import es.uniovi.asw.modelo.ServerResponse;
+import es.uniovi.asw.service.VoterAcces;
 import es.uniovi.asw.dbupdate.ColegioRepository;
 import es.uniovi.asw.dbupdate.EleccionesRepository;
 import es.uniovi.asw.dbupdate.VoterRepository;
@@ -21,7 +28,10 @@ import es.uniovi.asw.modelo.ColegioElectoral;
 import es.uniovi.asw.modelo.Elecciones;
 import es.uniovi.asw.modelo.PartidoPolitico;
 import es.uniovi.asw.modelo.Voto;
+import groovy.lang.Grab;
 
+
+@Grab("thymeleaf-spring4")
 @Controller
 public class Main {
 
@@ -37,6 +47,15 @@ public class Main {
 
 	@Autowired
 	EleccionesRepository eleccionesRepository = null;
+	
+	
+	private UserInfo userInfo;
+	private ServerResponse serverResponse;
+
+	@Autowired
+	private VoterAcces voterAccess;
+	
+	
 
 	@RequestMapping("/")
 	public ModelAndView landing(Model model) {
@@ -234,5 +253,74 @@ public class Main {
 			return "/add_colegio";
 		}
 	}
+	
+	
+	
+	
+	
+	
+	//Parte Voters
+	
+	@RequestMapping("/WelcomePage")
+	public String voterInicioSesion(Model model) {
+		LOG.info("Voter log in page access");
+		model.addAttribute("gizmo", new Gizmo());
+		return "WelcomePage";
+	}
+
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	@ResponseBody
+	public Object getVI(@RequestBody UserInfo userInfo) {
+
+		this.userInfo = userInfo;
+
+		this.serverResponse = this.voterAccess.getVoter(userInfo.getEmail(), userInfo.getClave());
+
+		return serverResponse;
+	}
+
+	@RequestMapping(value = "/showUserInfo", method = RequestMethod.POST)
+	public String getVR(Gizmo gizmo, Model model) {
+		try {
+			ServerResponse response = this.voterAccess.getVoter(gizmo.getField1(), gizmo.getField2());
+			this.serverResponse = response;
+			userInfo = new UserInfo(gizmo.getField1(), gizmo.getField2());
+		} catch (Exception e) {
+			return "WelcomePage";
+		}
+
+		ArrayList<Object> atributos = new ArrayList<>();
+		atributos.add(this.serverResponse);
+
+		model.addAttribute("atributes", atributos);
+
+		return "InfoPage";
+	}
+
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	public String changePass(Model model) {
+		model.addAttribute(new Gizmo());
+		return "ChangePassword";
+	}
+
+	@RequestMapping(value = "/changingPassword", method = RequestMethod.POST)
+	public String changingPassword(Gizmo gizmo, Model model) {
+
+		this.voterAccess.updatePassword(userInfo.getEmail(), userInfo.getClave(), gizmo.getField1());
+
+		ArrayList<Object> atributos = new ArrayList<>();
+		atributos.add(serverResponse);
+
+		model.addAttribute("atributes", atributos);
+
+		return "InfoPage";
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }

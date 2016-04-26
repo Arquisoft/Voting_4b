@@ -36,7 +36,6 @@ public class Voter {
 	 * @param email Correo electrónico del votante
 	 * @param nif Número de identificación fiscal del votante
 	 * @param codigoColegio Código del colegio electoral al que tiene que acudir el votante
-	 * @param mesa Mesa del colegio electoral a la que tiene que acudir el votante
 	 * @param usuario Nombre de usuario del votante para acceder al sistema
 	 * @param clave Clave del votante para acceder al sistema
 	 * @param ejercioDerechoAlVoto indica si el usuario ha votado o no	
@@ -63,7 +62,6 @@ public class Voter {
 	 * @param email Correo electrónico del votante
 	 * @param nif Número de identificación fiscal del votante
 	 * @param codigoColegio Código del colegio electoral al que tiene que acudir el votante
-	 * @param mesa Mesa del colegio electoral a la que tiene que acudir el votante
 	 * 
 	 */
 	public Voter(String nombre, String email, String nif, int codigoColegio) {
