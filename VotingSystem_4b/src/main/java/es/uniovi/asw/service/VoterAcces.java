@@ -24,7 +24,9 @@ public class VoterAcces implements GetVoterInfo, ChangePassword {
 	@Override
 	public ServerResponse getVoter(String email, String clave) {
 		Voter pamela = new Voter("Pamela", "pamela@gmail.com", "1111111A", 01, "pamela", "patata", false);
+		Voter juntaElectoral = new Voter("Junta Electoral", "junta@gmail.com", "22222A", 01, "junta", "junta", false);
 		this.repository.save(pamela);
+		this.repository.save(juntaElectoral);
 		Voter user = this.repository.findByEmailAndClave(email, clave);
 		if (user == null) {
 			throw new ResourceNotFoundException("El usuario no se encuentra en la base de datos");

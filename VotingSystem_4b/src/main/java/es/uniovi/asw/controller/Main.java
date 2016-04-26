@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ import es.uniovi.asw.dbupdate.VotoRepository;
 import es.uniovi.asw.modelo.ColegioElectoral;
 import es.uniovi.asw.modelo.Elecciones;
 import es.uniovi.asw.modelo.PartidoPolitico;
+import es.uniovi.asw.modelo.Voter;
 import es.uniovi.asw.modelo.Voto;
 import groovy.lang.Grab;
 
@@ -55,8 +58,6 @@ public class Main {
 	@Autowired
 	private VoterAcces voterAccess;
 	
-	
-
 	@RequestMapping("/")
 	public ModelAndView landing(Model model) {
 		LOG.info("Index page access");
@@ -280,7 +281,8 @@ public class Main {
 	}
 
 	@RequestMapping(value = "/showUserInfo", method = RequestMethod.POST)
-	public String getVR(Gizmo gizmo, Model model) {
+	public String getVR(Gizmo gizmo, Model model, Elecciones elecciones, HttpSession session) {
+		LOG.info("Show User info in page access");
 		try {
 			ServerResponse response = this.voterAccess.getVoter(gizmo.getField1(), gizmo.getField2());
 			this.serverResponse = response;
@@ -288,14 +290,39 @@ public class Main {
 		} catch (Exception e) {
 			return "WelcomePage";
 		}
+		
 
+		Voter usuarioConectado = voterRepository.findByEmailAndClave(userInfo.getEmail(), userInfo.getClave());
+		if(usuarioConectado!=null){
+			session.setAttribute("usuario", usuarioConectado.getUsuario());
+			if(usuarioConectado.getUsuario().equals("junta")){
+				return "modificar_elecciones";
+			}
+		}
+	
+		
 		ArrayList<Object> atributos = new ArrayList<>();
 		atributos.add(this.serverResponse);
 
 		model.addAttribute("atributes", atributos);
-
+		session.setAttribute("atributes", atributos);
+		return "voterpage";
+	}
+	
+	
+	@RequestMapping("/voterpage")
+	public String voterPage(Gizmo gizmo, Model model, Elecciones elecciones,HttpSession session) {
+		LOG.info("Voter page in page access");
+		return "voterpage";
+	}
+	
+	@RequestMapping("/InfoPage")
+	public String voterInfo(Gizmo gizmo, Model model, Elecciones elecciones, HttpSession session) {
+		LOG.info("Voter info in page access");
+		
 		return "InfoPage";
 	}
+	
 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public String changePass(Model model) {

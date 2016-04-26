@@ -3,8 +3,9 @@
 <head th:replace="fragments/header :: head">
 </head>
 <body>
+<h1>Voter Info</h1>
 	<div align="center">
-		<table>
+		<table class="tabla_info_page">
 			<thead>
 				<tr>
 					<th>Name</th>
@@ -14,7 +15,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="atribute : ${atributes}">
+				<tr th:each="atribute : ${session.atributes}">
 					<td th:text="${atribute.name}" />
 					<td th:text="${atribute.nif}" />
 					<td th:text="${atribute.email}" />
@@ -30,5 +31,7 @@
 			</div>
 		</form>
 	</div>
+	<input type="button" class="icono_return" onclick="history.back()"
+		name="volver_atras" value="&#8617;" />
 </body>
 </html>

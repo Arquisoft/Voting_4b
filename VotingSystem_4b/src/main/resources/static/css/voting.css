@@ -54,6 +54,10 @@ body, html {
 	margin-right: 35%;
 }
 
+#perfil_votante{
+	margin-left: 35%;
+}
+
 #modificar_elecciones {
 	margin-left: 35%;
 }
@@ -86,7 +90,7 @@ a.tooltip:hover span {
 	font-family: futura;
 }
 
-.boton_add_colegio, .boton_colegio ,.boton_login {
+.boton_add_colegio, .boton_colegio ,.boton_login, .boton_change , .boton_save{
 	font-size: 17px;
 	text-decoration: none;
 	padding: 0.50em 1.10em 0.50em 1.50em;
@@ -106,11 +110,12 @@ a:-webkit-any-link {
 }
 
 button.boton_votar:hover, button.boton_modificar:hover, a.boton_add_colegio:hover,
-	button.boton_colegio:hover, button.boton_login:hover {
+	button.boton_colegio:hover, button.boton_login:hover, button.boton_change:hover,
+	 button.boton_save:hover {
 	background: #310B54;
 }
 
-.input_siglas_partido, #field1 {
+.input_siglas_partido, #field1, .boton_change, .tabla_info_page {
 	margin-top: 5%;
 }
 
@@ -165,7 +170,8 @@ button.boton_votar:hover, button.boton_modificar:hover, a.boton_add_colegio:hove
 	text-align: center;
 }
 
-.nombre_elecciones, .nombre_partido, .cod_colegio, .lista_partidos {
+.nombre_elecciones, .nombre_partido, .cod_colegio,
+ .lista_partidos, .boton_save {
 	margin-top: 3%;
 }
 
@@ -178,7 +184,7 @@ input.input_siglas_partido:focus, input.nombre_elecciones:focus, input.opciones_
 }
 
 .etiqueta_fecha_inicial, .etiqueta_fecha_final, .lista_partidos,
-	.etiqueta_cod_colegio, .etiqueta_email, .etiqueta_password{
+	.etiqueta_cod_colegio, .etiqueta_email, .etiqueta_password, .etiqueta_password_change{
 	font-size: 25px;
 	font-weight: 100;
 	color: #eee;
@@ -200,6 +206,10 @@ table {
 	margin-top: 1%;
 	border-collapse: collapse;
 	width: 8%;
+}
+
+.tabla_info_page{
+	width:35%;
 }
 
 input[name=volver_atras] {
@@ -224,4 +234,4 @@ input[name=volver_atras] {
 	font-weight: 100;
 	color: #eee;
 	font-size: 18px;
-}}
+}

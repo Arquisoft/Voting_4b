@@ -12,6 +12,7 @@ public interface VoterRepository extends CrudRepository<Voter, Long> {
 
 	Voter findByNif(String nif);
 	Voter findByUsuario(String usuario);
+	Voter findByEmailAndClave(String email, String clave);
 	List<Voter> findAll();
 	
 	@Modifying
