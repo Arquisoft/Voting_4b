@@ -81,6 +81,8 @@ public class Main {
 						"Por favor, espere a que se inicien las elecciones");
 				return "esperarElecciones";
 			}else if(e.getFechaFin().before(hoy)){
+				LOG.info(e.getFechaFin().toString());
+				LOG.info(hoy.toString());
 				model.addAttribute("mensaje",
 						"Las elecciones ya han finalizado, espere a unas nuevas elecciones");
 				return "esperarElecciones";
@@ -340,13 +342,11 @@ public class Main {
 	@RequestMapping(value = "/showUserInfo", method = RequestMethod.POST)
 	public String getVR(Gizmo gizmo, Model model, Elecciones elecciones, HttpSession session) {
 		LOG.info("Show User info in page access");
-		try {
+		
 			ServerResponse response = this.voterAccess.getVoter(gizmo.getField1(), gizmo.getField2());
 			this.serverResponse = response;
 			userInfo = new UserInfo(gizmo.getField1(), gizmo.getField2());
-		} catch (Exception e) {
-			return "WelcomePage";
-		}
+		
 		
 
 		Voter usuarioConectado = voterRepository.findByEmailAndClave(userInfo.getEmail(), userInfo.getClave());
@@ -354,16 +354,18 @@ public class Main {
 			session.setAttribute("usuario", usuarioConectado.getUsuario());
 			if(usuarioConectado.getUsuario().equals("junta")){
 				return "modificar_elecciones";
+			}else{
+				ArrayList<Object> atributos = new ArrayList<>();
+				atributos.add(this.serverResponse);
+
+				model.addAttribute("atributes", atributos);
+				session.setAttribute("atributes", atributos);
+				return "voterpage";
 			}
 		}
 	
+		return "WelcomePage";
 		
-		ArrayList<Object> atributos = new ArrayList<>();
-		atributos.add(this.serverResponse);
-
-		model.addAttribute("atributes", atributos);
-		session.setAttribute("atributes", atributos);
-		return "voterpage";
 	}
 	
 	
