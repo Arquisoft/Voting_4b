@@ -50,8 +50,28 @@ body, html {
 	font-size: 200px;
 }
 
-#votar {
+.boton_cerrar{
+	margin-top:1%;
+	margin-left:95%;
+	background-color: transparent;
+	border: none;
+    cursor:pointer;
+    overflow: hidden;
+    color: #fff;
+    font-size: 50px;
+    outline: none;
+
+}
+
+.cerrar_sesion_body{
+	margin-top: -5%;
+}
+#votarPerfil {
 	margin-right: 35%;
+}
+
+#resultados{
+	margin-right: 20%;
 }
 
 #perfil_votante{
@@ -59,7 +79,7 @@ body, html {
 }
 
 #modificar_elecciones {
-	margin-left: 35%;
+	margin-left: 20%;
 }
 
 a:hover {

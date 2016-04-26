@@ -82,7 +82,7 @@ public class Main {
 	@RequestMapping(value = "/votar", method = RequestMethod.POST)
 	public String saveVote(Voto voto,
 			@ModelAttribute("partidoPolitico") String partidoPolitico,
-			Model model) {
+			Model model , HttpSession session) {
 
 		List<PartidoPolitico> partidos = new ArrayList<PartidoPolitico>();
 		for (PartidoPolitico p : PartidoPolitico.values()) {
@@ -321,6 +321,14 @@ public class Main {
 		LOG.info("Voter info in page access");
 		
 		return "InfoPage";
+	}
+	
+	@RequestMapping(value = "/cerrarSesion", method = RequestMethod.POST)
+	public String cerrarSesion(Model model, HttpSession session) {
+		LOG.info("Close session in page access");
+		session.invalidate();
+		return "index";
+		
 	}
 	
 
