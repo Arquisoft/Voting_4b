@@ -9,5 +9,5 @@ Voting System
 
 * Darío González
 * Mónica Cueva González
-* Pamela Fernández
+* Pamela Fernández Fernández
 * Raúl Rodríguez
