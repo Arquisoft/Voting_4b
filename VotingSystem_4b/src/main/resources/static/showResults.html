@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/jdbc">
+    <head>
+        <meta charset="utf-8" />
+        <title>Resultados Elecciones 2016</title>
+        <!-- import plugin script -->
+        <script src='js/Chart.js'></script>
+        <link type="text/css" href="css/showResultsStyle.css" rel="stylesheet"/>
+    </head>
+    <body>
+
+        <header>
+            <h1>Resultados Elecciones 2016</h1>
+            <p id="subTitle">Última actualización: 20/04/2016 09:45</p>
+        </header>
+
+        <section id="mainSection">
+
+            <table style="width:100%">
+                <tr>
+                    <td>SI</td>
+                    <td>NO</td>
+                </tr>
+                <tr>
+                    <td  th:text="${resultados[0]}"/>
+                    <td  th:text="${resultados[1]}"/>
+                </tr>
+            </table>
+
+        </section>
+        <aside><!-- pie chart canvas element -->
+            <canvas id="pieResultados" width="600" height="400"></canvas></aside>
+
+        <!-- bar chart canvas element -->
+        <script th:inline="javascript">
+
+            var array = [[${resultados}]];
+
+           // pie chart data
+            var pieData = [
+                {
+                    value: array[1],
+                    color: "#FF0000"
+                },
+                {
+                    value : array[0],
+                    color : "#0000FF"
+                }
+            ];
+            // pie chart options
+            var pieOptions = {
+                 segmentShowStroke : false,
+                 animateScale : true
+            }
+
+            // get pie chart canvas
+            var resultadosPie= document.getElementById("pieResultados").getContext("2d");
+
+            // draw pie chart
+            new Chart(resultadosPie).Pie(pieData, pieOptions);
+
+        </script>
+    </body>
+</html>

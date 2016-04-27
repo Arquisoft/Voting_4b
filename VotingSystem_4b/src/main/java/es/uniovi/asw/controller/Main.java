@@ -54,6 +54,9 @@ public class Main {
 	
 	private UserInfo userInfo;
 	private ServerResponse serverResponse;
+	
+	// Guarda un array con los resultados de las votaciones para mostrar
+	public static int[] resultados;
 
 	@Autowired
 	private VoterAcces voterAccess;
