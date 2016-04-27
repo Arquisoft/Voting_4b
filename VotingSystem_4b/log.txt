@@ -1,0 +1,6 @@
+Wed Apr 27 22:16:39 CEST 2016 INFO La carta en formato PDF para este usuario ya existe
+Wed Apr 27 22:16:39 CEST 2016 INFO La carta en formato TXT para este usuario ya existe
+Wed Apr 27 22:16:39 CEST 2016 INFO La carta en formato PDF para este usuario ya existe
+Wed Apr 27 22:16:39 CEST 2016 INFO La carta en formato TXT para este usuario ya existe
+Wed Apr 27 22:16:39 CEST 2016 INFO La carta en formato PDF para este usuario ya existe
+Wed Apr 27 22:16:39 CEST 2016 INFO La carta en formato TXT para este usuario ya existe

@@ -12,12 +12,13 @@
 			<form id="gizmo-form" role="form" th:action="@{/showUserInfo}"
 				method="post" th:object="${gizmo}">
 				<div id="field1DIV">
-					<label class="etiqueta_email" for="field1">Email: </label> <input type="text" id="field1"
-						name="field1" th:field="${gizmo.field1}" />
+					<label class="etiqueta_email" for="field1">Email: </label> <input
+						type="text" id="field1" name="field1" th:field="${gizmo.field1}" />
 				</div>
 				<div>
-					<label class="etiqueta_password" for="field2">Password: </label> <input type="password"
-						id="field2" name="field2" th:field="${gizmo.field2}" />
+					<label class="etiqueta_password" for="field2">Password: </label> <input
+						type="password" id="field2" name="field2"
+						th:field="${gizmo.field2}" />
 				</div>
 				<div id="buttonDIV">
 					<button class="boton_login" type="submit" id="button">LOGIN</button>
@@ -25,8 +26,12 @@
 			</form>
 		</div>
 	</section>
+	
+	<div th:if="${mensaje != null}" class="mensaje" align="center">
+		<p class="mostrar_mensaje" th:text="${mensaje}"></p>
+	</div>
 
-<input type="button" class="icono_return" onclick="history.back()"
+	<input type="button" class="icono_return" onclick="history.back()"
 		name="volver_atras" value="&#8617;" />
 </body>
 </html>

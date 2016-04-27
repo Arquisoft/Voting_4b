@@ -3,12 +3,12 @@ package es.uniovi.asw.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -346,16 +346,24 @@ public class Main {
 	public String getVR(Gizmo gizmo, Model model, Elecciones elecciones, HttpSession session) {
 		LOG.info("Show User info in page access");
 		
+		try{
 			ServerResponse response = this.voterAccess.getVoter(gizmo.getField1(), gizmo.getField2());
 			this.serverResponse = response;
 			userInfo = new UserInfo(gizmo.getField1(), gizmo.getField2());
-		
+		}catch(ResourceNotFoundException e){
+			model.addAttribute("mensaje",
+					"Por favor, introduzca un email y password correctos");
+			LOG.info("No se ha podido iniciar sesión porque no es correcto el usuario");
+			return "WelcomePage";
+		}
 		
 
 		Voter usuarioConectado = voterRepository.findByEmailAndClave(userInfo.getEmail(), userInfo.getClave());
+	
 		if(usuarioConectado!=null){
 			session.setAttribute("usuario", usuarioConectado.getUsuario());
 			if(usuarioConectado.getUsuario().equals("junta")){
+				LOG.info("Se ha iniciado sesión como Junta Electoral");
 				return "modificar_elecciones";
 			}else{
 				ArrayList<Object> atributos = new ArrayList<>();
@@ -363,6 +371,7 @@ public class Main {
 
 				model.addAttribute("atributes", atributos);
 				session.setAttribute("atributes", atributos);
+				LOG.info("Se ha iniciado sesión como votante");
 				return "voterpage";
 			}
 		}
