@@ -1,17 +1,16 @@
 package es.uniovi.asw.Calculate.voters;
 
-import java.util.List;
 import java.util.Map;
 
 import es.uniovi.asw.modelo.Voto;
 import es.uniovi.asw.service.GetVotes;
 
-public class ReferendumType implements VotersType {
+public class VotersTypeImpl implements VotersType {
 
-	private Referendum tipo;
+	private Option tipo;
 
-	public ReferendumType(List<Voto> votes) {
-		tipo = new Referendum();
+	public VotersTypeImpl() {
+		tipo = new Option();
 	}
 
 	@Override

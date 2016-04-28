@@ -7,21 +7,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
 public class Elecciones {
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String nombre;
-    private Date fechaInicio;
-    private Date fechaFin;
-    private String opciones;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String nombre;
+	private Date fechaInicio;
+	private Date fechaFin;
+	private String opciones;//Cambiar a Arraylist
 
-
-	public Elecciones(String nombre, Date fechaInicio, Date fechaFin,
-			String opciones) {
+	public Elecciones(String nombre, Date fechaInicio, Date fechaFin, String opciones) {
 		super();
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;
@@ -29,8 +26,8 @@ public class Elecciones {
 		this.opciones = opciones;
 
 	}
-	
-	protected Elecciones(){
+
+	protected Elecciones() {
 	}
 
 	public String getNombre() {
@@ -65,26 +62,10 @@ public class Elecciones {
 		this.opciones = opciones;
 	}
 
-
-
-
 	@Override
 	public String toString() {
-		return "Elecciones [nombre=" + nombre + ", fechaInicio=" + fechaInicio
-				+ ", fechaFin=" + fechaFin + ", opciones=" + opciones
-				+ "]";
+		return "Elecciones [nombre=" + nombre + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin
+				+ ", opciones=" + opciones + "]";
 	}
 
-	
-	
-	
-
-    
-
-    
-    
-    
-    
-
-    
 }

@@ -1,7 +1,6 @@
 package es.uniovi.asw.Calculate;
 
 import es.uniovi.asw.Calculate.info.ObjectInfo;
-import es.uniovi.asw.Calculate.voters.ReferendumObject;
 import es.uniovi.asw.Calculate.voters.VotersType;
 import es.uniovi.asw.WebController.WebObserver;
 import es.uniovi.asw.service.GetVotes;
@@ -33,7 +32,6 @@ public class Calculate {
 	}
 
 	public void actualiceC() {
-		ReferendumObject object = new ReferendumObject(type.getResult().get("si"), type.getResult().get("no"));
-		info.actualiza(object);
+		info.actualiza(type.getResult());
 	}
 }

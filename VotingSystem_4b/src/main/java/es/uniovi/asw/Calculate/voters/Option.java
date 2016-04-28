@@ -5,16 +5,17 @@ import java.util.Map;
 
 import es.uniovi.asw.modelo.Voto;
 
-public class Referendum {
+public class Option {
 	private Map<String, Integer> recuento;
 	private int nVoto;
 	
-	public Referendum(){
+	public Option(){
 		this.recuento = new HashMap<String,Integer>();	
 		}
 	
 	public void actualizar(Voto vote){
-		String dato = vote.getPartidoPolitico();//TODO generalizar
+		String dato = vote.getOpcion();
+		//TODO COMPROBAR?
 		try{
 			recuento.put(dato
 					,recuento.get(dato).intValue()+1);

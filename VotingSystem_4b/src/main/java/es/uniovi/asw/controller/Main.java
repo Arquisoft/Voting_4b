@@ -384,12 +384,9 @@ public class Main {
 	@RequestMapping("/showingResults")
 	public String showResults(Model model) {
 
-		ColegioElectoral colegio = new ColegioElectoral(50, "Asturias", "Principado de Asturias");
-		colegioRepository.save(colegio);
-
-		Voto voto = new Voto(colegio, PartidoPolitico.UPD.toString(), false, false, false);
-		votoRepository.save(voto);
-
+		
+		
+		
 		// TODO: Meter save de varios votos
 
 		int[] aux = new int[2];

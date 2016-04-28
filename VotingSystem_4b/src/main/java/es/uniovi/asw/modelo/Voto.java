@@ -16,7 +16,7 @@ public class Voto {
 
 	private boolean nulo;
 	private boolean blanco;
-	private String partidoPolitico;
+	private String opcion;
 
 	@ManyToOne
 	private ColegioElectoral colegio;
@@ -27,7 +27,7 @@ public class Voto {
 	public Voto(ColegioElectoral colegio, String partido, boolean contabilizado, boolean nulo, boolean blanco) {
 		super();
 		this.colegio = colegio;
-		this.partidoPolitico = partido;
+		this.opcion = partido;
 		this.contabilizado = contabilizado;
 		this.nulo = nulo;
 		this.blanco = blanco;
@@ -65,12 +65,12 @@ public class Voto {
 		this.contabilizado = contabilizado;
 	}
 
-	public String getPartidoPolitico() {
-		return partidoPolitico;
+	public String getOpcion() {
+		return opcion;
 	}
 
-	public void setPartidoPolitico(String partidoPolitico) {
-		this.partidoPolitico = partidoPolitico;
+	public void setOpcion(String partidoPolitico) {
+		this.opcion = partidoPolitico;
 	}
 
 	public void setColegio(ColegioElectoral colegio) {
@@ -80,7 +80,7 @@ public class Voto {
 	@Override
 	public String toString() {
 		return "Voto [contabilizado=" + contabilizado + ", nulo=" + nulo + ", blanco=" + blanco + ", partidoPolitico="
-				+ partidoPolitico + ", colegio=" + colegio + "]";
+				+ opcion + ", colegio=" + colegio + "]";
 	}
 
 }

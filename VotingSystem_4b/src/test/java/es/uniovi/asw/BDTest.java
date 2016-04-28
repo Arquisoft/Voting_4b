@@ -140,10 +140,10 @@ public class BDTest {
 		ColegioElectoral c3 = new ColegioElectoral(1000,"Cantabria","Cantabria");
 		Voto v = new Voto(c3, PartidoPolitico.Ciudadanos.toString(), false, false, false);
 		v.setBlanco(true);
-		v.setPartidoPolitico("");
+		v.setOpcion("");
 		v.setContabilizado(false);
 		v.setNulo(false);
-		assertEquals("", v.getPartidoPolitico());
+		assertEquals("", v.getOpcion());
 	}
 	
 	@Test
