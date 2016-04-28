@@ -1,1 +1,51 @@
+@CHARSET "ISO-8859-1";
 
+h1 {
+	margin-left: 40%;
+	margin-top: 5%;
+	font-size: 50px;
+	font-weight: 100;
+	color: #eee;
+}
+
+h2{
+
+	margin-top: 1%;
+	font-size: 40px;
+	font-weight: 200;
+	color: #eee;
+	font-style:oblique;
+}
+
+p{
+	margin-top: 5%;
+	color: #eee;
+	font-size: 18px;
+}
+
+a {
+	font-size: 17px;
+	font-weight: 500;
+	color: #EEEEEE;
+}
+
+*, *:before, *:after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body, html {
+	position: relative;
+	height: 100%;
+	background-image:
+		url("http://static1.squarespace.com/static/554578efe4b06698c529a224/t/56e19eaac2ea51840bab4376/1457626796511/Election+Background.jpg?format=1500w");
+	background-size: cover;
+	overflow: auto;
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+.material-icons {
+	margin-top: 10%;
+	font-size: 200px;
+}
