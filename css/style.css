@@ -49,9 +49,15 @@ body, html {
 	margin-top: 10%;
 	font-size: 200px;
 }
-.icon{
+.icon_logo{
 	margin-top: 5%;
 	height: 150px;
+}
+
+.icon_download{
+	margin-top: 5%;
+	margin-left:1%;
+	height: 130px;
 }
 
 a:hover {
