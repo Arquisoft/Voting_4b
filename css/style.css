@@ -24,9 +24,9 @@ p{
 }
 
 a {
-	font-size: 17px;
-	font-weight: 500;
-	color: #EEEEEE;
+	font-size: 5px;
+	font-weight: 200;
+	color: #EBD5EB;
 }
 
 *, *:before, *:after {
@@ -45,13 +45,17 @@ body, html {
 	font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
 
-.material-icons {
+.material-icons,{
 	margin-top: 10%;
 	font-size: 200px;
 }
+.icon{
+	margin-top: 5%;
+	height: 150px;
+}
 
 a:hover {
-	background: #eee;
+	background: #EBD5EB;
 	text-decoration: none;
 }
 
