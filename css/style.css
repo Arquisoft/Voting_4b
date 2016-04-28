@@ -49,3 +49,16 @@ body, html {
 	margin-top: 10%;
 	font-size: 200px;
 }
+
+a:hover {
+	background: #eee;
+	text-decoration: none;
+}
+
+a.tooltip:hover span {
+	display: inline;
+	position: absolute;
+	color: #fff;
+	font-size: 40px;
+	line-height: 120%;
+}
