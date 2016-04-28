@@ -422,7 +422,18 @@ public class Main {
 		return "InfoPage";
 	}
 	
-	
+	@RequestMapping("/")
+	public String showResults(Model model) {
+
+		// TODO: Meter save de varios votos
+		
+		int[] aux = new int[2];
+		aux[0] = 70;
+		aux[1] = 30;
+
+		model.addAttribute("resultados", aux);
+		return "index";
+	}
 	
 	
 	
