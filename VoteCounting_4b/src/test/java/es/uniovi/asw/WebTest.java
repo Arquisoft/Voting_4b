@@ -3,6 +3,7 @@ package es.uniovi.asw;
 import es.uniovi.asw.Calculate.voters.Referendum;
 import es.uniovi.asw.DBManagement.domain.Candidate;
 import es.uniovi.asw.DBManagement.domain.Vote;
+import es.uniovi.asw.WebController.WebObserver;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.junit.Test;

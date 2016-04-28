@@ -2,17 +2,19 @@ package es.uniovi.asw.Calculate.info;
 
 import java.util.Map;
 
+import es.uniovi.asw.Calculate.voters.ReferendumObject;
+
 public class Info implements ObjectInfo {
 
-	private Map<String, Double> resultados;
+	private ReferendumObject resultados;
 
 	@Override
-	public void actualiza(Map<String, Double> resultados) {
+	public void actualiza(ReferendumObject resultados) {
 		this.resultados = resultados;
 	}
 
 	@Override
-	public Map<String, Double> getResultado() {
+	public ReferendumObject getResultado() {
 		return resultados;
 	}
 

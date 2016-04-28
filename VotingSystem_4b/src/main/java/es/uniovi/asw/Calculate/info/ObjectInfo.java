@@ -2,10 +2,12 @@ package es.uniovi.asw.Calculate.info;
 
 import java.util.Map;
 
-public interface  ObjectInfo {
+import es.uniovi.asw.Calculate.voters.ReferendumObject;
 
-	public void actualiza(Map<String,Double> resultados);
-	public Map<String,Double> getResultado();
+public interface ObjectInfo {
 
-	
+	public void actualiza(ReferendumObject resultados);
+
+	public ReferendumObject getResultado();
+
 }

@@ -15,8 +15,8 @@ public class ReferendumType implements VotersType {
 	}
 
 	@Override
-	public Map<String, Double> getResult() {
-		return tipo.getPercents();
+	public Map<String, Integer> getResult() {
+		return tipo.getResult();
 	}
 
 	@Override

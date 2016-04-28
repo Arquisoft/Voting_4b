@@ -4,10 +4,10 @@ import java.util.Map;
 
 import es.uniovi.asw.service.GetVotes;
 
-
 public interface VotersType {
 
-	public Map<String,Double> getResult();
+	public Map<String, Integer> getResult();
+
 	public void actualize(GetVotes votes);
-	
+
 }
