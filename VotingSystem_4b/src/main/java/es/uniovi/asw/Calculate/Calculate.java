@@ -1,9 +1,9 @@
 package es.uniovi.asw.Calculate;
 
-import es.uniovi.asw.WebObserver;
 import es.uniovi.asw.Calculate.info.ObjectInfo;
 import es.uniovi.asw.Calculate.voters.VotersType;
-import es.uniovi.asw.DBManagement.GetVotes;
+import es.uniovi.asw.WebController.WebObserver;
+import es.uniovi.asw.service.GetVotes;
 
 public class Calculate {
 

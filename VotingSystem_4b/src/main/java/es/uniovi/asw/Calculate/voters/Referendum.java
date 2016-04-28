@@ -3,7 +3,7 @@ package es.uniovi.asw.Calculate.voters;
 import java.util.HashMap;
 import java.util.Map;
 
-import es.uniovi.asw.DBManagement.domain.Vote;
+import es.uniovi.asw.modelo.Voto;
 
 public class Referendum {
 	private Map<String, Integer> recuento;
@@ -13,8 +13,8 @@ public class Referendum {
 		this.recuento = new HashMap<String,Integer>();	
 		}
 	
-	public void actualizar(Vote vote){
-		String dato = vote.getCandidatura().toString();
+	public void actualizar(Voto vote){
+		String dato = vote.getPartidoPolitico();//TODO generalizar
 		try{
 			recuento.put(dato
 					,recuento.get(dato).intValue()+1);
