@@ -1,5 +1,8 @@
 body {
-    background-color: whitesmoke;
+   background-image:
+		url("http://static1.squarespace.com/static/554578efe4b06698c529a224/t/56e19eaac2ea51840bab4376/1457626796511/Election+Background.jpg?format=1500w");
+	background-size: cover;
+	overflow: auto;
 }
 
 
@@ -11,7 +14,7 @@ h1 {
 }
 
 #subTitle {
-    color: lavender;
+    color: white;
     font: 30px Helvetica, Arial, Sans-Serif;
     text-align: center;
     vertical-align: middle;
@@ -20,4 +23,15 @@ h1 {
 
 header {
     margin-bottom: 70px;
+}
+
+#pieResultados {
+	padding-left: 16%;
+}
+
+#resultadoTexto {
+	color: white;
+    font: 30px Helvetica, Arial, Sans-Serif;
+    text-align: center;
+    vertical-align: middle;
 }

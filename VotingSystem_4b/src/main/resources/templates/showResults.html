@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.springframework.org/schema/jdbc">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8" />
         <title>Resultados Elecciones 2016</title>
@@ -14,22 +14,9 @@
             <p id="subTitle">Última actualización: 20/04/2016 09:45</p>
         </header>
 
-        <section id="mainSection">
-
-            <table style="width:100%">
-                <tr>
-                    <td>SI</td>
-                    <td>NO</td>
-                </tr>
-                <tr>
-                    <td  th:text="${resultados[0]}"/>
-                    <td  th:text="${resultados[1]}"/>
-                </tr>
-            </table>
-
-        </section>
-        <aside><!-- pie chart canvas element -->
-            <canvas id="pieResultados" width="600" height="400"></canvas></aside>
+        <p th:text="${resultadosString}" id="resultadoTexto"/>
+        <canvas id="pieResultados" width="600" height="400"></canvas>
+        
 
         <!-- bar chart canvas element -->
         <script th:inline="javascript">

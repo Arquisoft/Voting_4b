@@ -381,11 +381,8 @@ public class Main {
 		return "InfoPage";
 	}
 
-	@RequestMapping("/showingResults")
+	@RequestMapping("/showResults")
 	public String showResults(Model model) {
-
-		
-		
 		
 		// TODO: Meter save de varios votos
 
@@ -393,8 +390,11 @@ public class Main {
 		aux[0] = 70;
 		aux[1] = 30;
 
+		String resultados = "SI: " + aux[0] + " NO: " + aux[1];
+		
+		model.addAttribute("resultadosString", resultados);
 		model.addAttribute("resultados", aux);
-		return "index";
+		return "/showResults";
 	}
 
 }
