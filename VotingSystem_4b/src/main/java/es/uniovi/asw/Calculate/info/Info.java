@@ -6,15 +6,15 @@ import es.uniovi.asw.Calculate.voters.ReferendumObject;
 
 public class Info implements ObjectInfo {
 
-	private ReferendumObject resultados;
+	private Map<String, Integer> resultados;
 
 	@Override
-	public void actualiza(ReferendumObject resultados) {
+	public void actualiza(Map<String, Integer> resultados) {
 		this.resultados = resultados;
 	}
 
 	@Override
-	public ReferendumObject getResultado() {
+	public Map<String, Integer> getResultado() {
 		return resultados;
 	}
 

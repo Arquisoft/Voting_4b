@@ -9,6 +9,6 @@ import es.uniovi.asw.Calculate.voters.ReferendumObject;
  */
 public interface Observer {
 
-	public void actualizar(ReferendumObject resultados);
+	public void actualizar(Map<String, Integer> resultados);
 
 }

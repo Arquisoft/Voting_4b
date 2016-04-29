@@ -10,9 +10,9 @@ import es.uniovi.asw.controller.Main;
  */
 public class WebObserver implements Observer {
 
-	public void actualizar(ReferendumObject resultados) {
+	public void actualizar(Map<String, Integer> map) {
 
-		Main.resultados = resultados;
+		Main.resultados = map;
 	}
 
 	/*private int[] prepararArray(Map<String, Double> resultados) {

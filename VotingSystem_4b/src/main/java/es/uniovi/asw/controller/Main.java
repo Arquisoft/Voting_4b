@@ -3,6 +3,8 @@ package es.uniovi.asw.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -55,7 +57,7 @@ public class Main {
 	private ServerResponse serverResponse;
 
 	// Guarda un array con los resultados de las votaciones para mostrar
-	public static ReferendumObject resultados;
+	public static Map<String, Integer> resultados;
 
 	@Autowired
 	private VoterAcces voterAccess;

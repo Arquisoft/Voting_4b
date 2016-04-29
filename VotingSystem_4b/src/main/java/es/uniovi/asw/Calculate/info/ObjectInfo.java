@@ -6,8 +6,8 @@ import es.uniovi.asw.Calculate.voters.ReferendumObject;
 
 public interface ObjectInfo {
 
-	public void actualiza(ReferendumObject resultados);
+	public void actualiza(Map<String, Integer> map);
 
-	public ReferendumObject getResultado();
+	public Map<String, Integer> getResultado();
 
 }
