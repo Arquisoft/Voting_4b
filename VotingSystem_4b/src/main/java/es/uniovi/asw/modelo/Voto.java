@@ -24,10 +24,10 @@ public class Voto {
 	protected Voto() {
 	}
 
-	public Voto(ColegioElectoral colegio, String partido, boolean contabilizado, boolean nulo, boolean blanco) {
+	public Voto(ColegioElectoral colegio, String opcion, boolean contabilizado, boolean nulo, boolean blanco) {
 		super();
 		this.colegio = colegio;
-		this.opcion = partido;
+		this.opcion = opcion;
 		this.contabilizado = contabilizado;
 		this.nulo = nulo;
 		this.blanco = blanco;

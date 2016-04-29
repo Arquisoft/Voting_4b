@@ -2,7 +2,6 @@ package es.uniovi.asw.WebController;
 
 import java.util.Map;
 
-import es.uniovi.asw.Calculate.voters.ReferendumObject;
 import es.uniovi.asw.controller.Main;
 
 /**
@@ -14,13 +13,5 @@ public class WebObserver implements Observer {
 
 		Main.resultados = map;
 	}
-
-	/*private int[] prepararArray(Map<String, Double> resultados) {
-		int[] array = new int[resultados.size()];
-		for (int i = 0; i < resultados.size(); i++) {
-			array[i] = (int) (resultados.get(i) * 100);
-		}
-		return array;
-	}*/
 
 }

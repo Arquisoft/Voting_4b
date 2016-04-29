@@ -2,8 +2,10 @@ package es.uniovi.asw.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,9 +23,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.uniovi.asw.UserInfo;
-import es.uniovi.asw.Calculate.voters.ReferendumObject;
+import es.uniovi.asw.Calculate.Calculate;
+import es.uniovi.asw.Calculate.voters.VotersTypeImpl;
 import es.uniovi.asw.modelo.Gizmo;
 import es.uniovi.asw.modelo.ServerResponse;
+import es.uniovi.asw.service.DBVotes;
 import es.uniovi.asw.service.VoterAcces;
 import es.uniovi.asw.dbupdate.ColegioRepository;
 import es.uniovi.asw.dbupdate.EleccionesRepository;
@@ -385,15 +389,33 @@ public class Main {
 
 	@RequestMapping("/showResults")
 	public String showResults(Model model) {
-		
+
 		// TODO: Meter save de varios votos
 
-		int[] aux = new int[2];
-		aux[0] = 70;
-		aux[1] = 30;
+		Voto votoSi = new Voto(null, "Si", false, false, false);
+		Voto votoNo = new Voto(null, "No", false, false, false);
+
+		votoRepository.save(votoSi);
+		votoRepository.save(votoNo);
+
+		Calculate calculate = new Calculate(new DBVotes(votoRepository), new VotersTypeImpl());
+
+		String[] aux = new String[resultados.size()];
+		Set entries = resultados.entrySet();
+		Iterator entriesIterator = entries.iterator();
+
+		int i = 0;
+		while (entriesIterator.hasNext()) {
+
+			Map.Entry mapping = (Map.Entry) entriesIterator.next();
+
+			aux[i] = mapping.getValue().toString();
+
+			i++;
+		}
 
 		String resultados = "SI: " + aux[0] + " NO: " + aux[1];
-		
+
 		model.addAttribute("resultadosString", resultados);
 		model.addAttribute("resultados", aux);
 		return "/showResults";

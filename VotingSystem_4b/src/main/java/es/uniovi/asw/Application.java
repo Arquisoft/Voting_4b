@@ -13,7 +13,9 @@ import org.springframework.context.annotation.Bean;
 
 import es.uniovi.asw.dbupdate.VoterRepository;
 import es.uniovi.asw.factoria.ParserFactory;
+import es.uniovi.asw.modelo.ColegioElectoral;
 import es.uniovi.asw.modelo.Voter;
+import es.uniovi.asw.modelo.Voto;
 import es.uniovi.asw.parser.impl.CartasPDF;
 import es.uniovi.asw.parser.impl.CartasTXT;
 import es.uniovi.asw.parser.impl.LeerFicheroXlsx;
@@ -71,6 +73,7 @@ public class Application {
 						false);
 				repository.save(pamela);
 				repository.save(juntaElectoral);
+				
 			}
 		};
 

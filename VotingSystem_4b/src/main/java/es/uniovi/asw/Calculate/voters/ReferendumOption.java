@@ -5,15 +5,16 @@ import java.util.Map;
 
 import es.uniovi.asw.modelo.Voto;
 
-public class Option {
+public class ReferendumOption implements OptionType {
 	private Map<String, Integer> recuento;
 	private int nVoto;
 	
-	public Option(){
+	public ReferendumOption(){
 		this.recuento = new HashMap<String,Integer>();	
 		}
 	
-	public void actualizar(Voto vote){
+	@Override
+	public void contarVoto(Voto vote){
 		String dato = vote.getOpcion();
 		//TODO COMPROBAR?
 		try{
@@ -27,6 +28,7 @@ public class Option {
 		}
 	}
 	
+	@Override
 	public Map<String,Integer> getResult(){
 		return recuento;
 	}
@@ -40,7 +42,9 @@ public class Option {
 		return porcentajes;
 	}
 	
+	@Override
 	public int nVoto(){
 		return nVoto;
 	}
+
 }

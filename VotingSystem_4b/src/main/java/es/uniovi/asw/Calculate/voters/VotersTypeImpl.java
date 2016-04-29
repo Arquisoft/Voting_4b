@@ -7,10 +7,10 @@ import es.uniovi.asw.service.GetVotes;
 
 public class VotersTypeImpl implements VotersType {
 
-	private Option tipo;
+	private OptionType tipo;
 
 	public VotersTypeImpl() {
-		tipo = new Option();
+		tipo = new ReferendumOption();
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class VotersTypeImpl implements VotersType {
 	public void actualize(GetVotes votes) {
 		for (Voto v : votes.getVotes()) {
 			if (!v.isContabilizado()) {
-
+				tipo.contarVoto(v);
 				votes.updateVote(v.getId());// actualizamos el estado del voto
 			}
 		}
