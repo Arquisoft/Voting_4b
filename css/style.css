@@ -95,7 +95,12 @@ min-height: 700px;
 
  .footer li{
  	color:#310B56;
- 	padding:10px 30%;
- 	text-align: left;
+ 	padding:6px;
+ 	text-align: center;
  	font-size:20px;
  }
+
+
+.footer ul{
+	margin-top: 20px;
+}
