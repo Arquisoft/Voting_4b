@@ -16,7 +16,6 @@ public class ReferendumOption implements OptionType {
 	@Override
 	public void contarVoto(Voto vote){
 		String dato = vote.getOpcion();
-		//TODO COMPROBAR?
 		try{
 			recuento.put(dato
 					,recuento.get(dato).intValue()+1);

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -35,7 +36,7 @@ import es.uniovi.asw.dbupdate.VoterRepository;
 import es.uniovi.asw.dbupdate.VotoRepository;
 import es.uniovi.asw.modelo.ColegioElectoral;
 import es.uniovi.asw.modelo.Elecciones;
-import es.uniovi.asw.modelo.PartidoPolitico;
+import es.uniovi.asw.modelo.Referendum;
 import es.uniovi.asw.modelo.Voter;
 import es.uniovi.asw.modelo.Voto;
 import groovy.lang.Grab;
@@ -74,7 +75,8 @@ public class Main {
 	}
 
 	@RequestMapping(value = "/votar")
-	public String votar(Voto voto, @ModelAttribute("partidoPolitico") String partidoPolitico, Model model) {
+	public String votar(Voto voto, @ModelAttribute("opcion") String opcionVoto, Model model) {// TODO
+																								// CAMBIO
 
 		List<Elecciones> elecciones = eleccionesRepository.findAll();
 		if (!elecciones.isEmpty()) {
@@ -95,23 +97,23 @@ public class Main {
 			return "esperarElecciones";
 		}
 
-		List<PartidoPolitico> partidos = new ArrayList<PartidoPolitico>();
-		for (PartidoPolitico p : PartidoPolitico.values()) {
-			partidos.add(p);
-		}
-		model.addAttribute("partidos", partidos);
+		/*
+		 * List<PartidoPolitico> partidos = new ArrayList<PartidoPolitico>();
+		 * for (PartidoPolitico p : PartidoPolitico.values()) { partidos.add(p);
+		 * } model.addAttribute("partidos", partidos);
+		 */
 		return "/votar";
 	}
 
 	@RequestMapping(value = "/votar", method = RequestMethod.POST)
-	public String saveVote(Voto voto, @ModelAttribute("partidoPolitico") String partidoPolitico, Model model,
-			HttpSession session) {
+	public String saveVote(Voto voto, @ModelAttribute("opcion") String opcionVoto, Model model, HttpSession session) {// TODO
+																														// CAMBIO
 
-		List<PartidoPolitico> partidos = new ArrayList<PartidoPolitico>();
-		for (PartidoPolitico p : PartidoPolitico.values()) {
-			partidos.add(p);
-		}
-		model.addAttribute("partidos", partidos);
+		/*
+		 * List<PartidoPolitico> partidos = new ArrayList<PartidoPolitico>();
+		 * for (PartidoPolitico p : PartidoPolitico.values()) { partidos.add(p);
+		 * } model.addAttribute("partidos", partidos);
+		 */
 
 		if (session.getAttribute("usuario") != null) {
 			Voter voter = voterRepository.findByUsuario((String) session.getAttribute("usuario"));
@@ -125,7 +127,7 @@ public class Main {
 			}
 		}
 
-		if (partidoPolitico == null) {
+		if (opcionVoto == null) {
 			Voto v = new Voto(null, null, false, false, true);
 			votoRepository.save(v);
 			model.addAttribute("mensaje", "Ha votado correctamente: voto en blanco");
@@ -142,25 +144,27 @@ public class Main {
 		}
 		boolean encontrado = false;
 
-		for (PartidoPolitico p : PartidoPolitico.values()) {
-			if (p.toString().equals(partidoPolitico)) {
-				Voto v = new Voto(null, p.toString(), false, false, false);
-				votoRepository.save(v);
-				model.addAttribute("mensaje", "Ha votado correctamente");
-				LOG.info("Se ha añadido un nuevo voto");
-				if (session.getAttribute("usuario") != null) {
-					Voter voter = voterRepository.findByUsuario((String) session.getAttribute("usuario"));
-					if (voter != null) {
-						voterAccess.updateEjercioDerechoAlVoto(true, voter.getUsuario());
-						LOG.info(voter.toString());
-					}
+		// for (PartidoPolitico p : PartidoPolitico.values()) {
+		// if (p.toString().equals(partidoPolitico)) {
+		if (opcionVoto.equals(Referendum.SI) || opcionVoto.equals(Referendum.NO)) {
+			Voto v = new Voto(null, opcionVoto, false, false, false);
+			votoRepository.save(v);
+			model.addAttribute("mensaje", "Ha votado correctamente");
+			LOG.info("Se ha añadido un nuevo voto");
+			if (session.getAttribute("usuario") != null) {
+				Voter voter = voterRepository.findByUsuario((String) session.getAttribute("usuario"));
+				if (voter != null) {
+					voterAccess.updateEjercioDerechoAlVoto(true, voter.getUsuario());
+					LOG.info(voter.toString());
 				}
-				encontrado = true;
-
-				return "/votar";
 			}
+			encontrado = true;
+
+			return "/votar";
 		}
-		if (partidoPolitico.equals("")) {
+		if (opcionVoto.equals(""))
+
+		{
 			Voto v = new Voto(null, null, false, false, true);
 			votoRepository.save(v);
 			model.addAttribute("mensaje", "Ha votado correctamente: voto en blanco");
@@ -174,7 +178,9 @@ public class Main {
 			}
 			return "/votar";
 
-		} else {
+		} else
+
+		{
 			if (encontrado == false) {
 				Voto v = new Voto(null, null, false, true, false);
 				votoRepository.save(v);
@@ -390,34 +396,36 @@ public class Main {
 	@RequestMapping("/showResults")
 	public String showResults(Model model) {
 
-		// TODO: Meter save de varios votos
-
-		Voto votoSi = new Voto(null, "Si", false, false, false);
-		Voto votoNo = new Voto(null, "No", false, false, false);
-
+		// VOTOS DE PRUEBA
+		Voto votoSi = new Voto(null, Referendum.SI.toString(), false, false, false);
+		Voto votoNo = new Voto(null, Referendum.NO.toString(), false, false, false);
 		votoRepository.save(votoSi);
 		votoRepository.save(votoNo);
+		//
 
-		Calculate calculate = new Calculate(new DBVotes(votoRepository), new VotersTypeImpl());
+		if (!votoRepository.findAll().isEmpty()) {
 
-		String[] aux = new String[resultados.size()];
-		Set entries = resultados.entrySet();
-		Iterator entriesIterator = entries.iterator();
+			Calculate calculate = new Calculate(new DBVotes(votoRepository), new VotersTypeImpl());
 
-		int i = 0;
-		while (entriesIterator.hasNext()) {
+			String[] aux = new String[resultados.size()];
+			Set<Entry<String, Integer>> entries = resultados.entrySet();
+			Iterator<Entry<String, Integer>> entriesIterator = entries.iterator();
 
-			Map.Entry mapping = (Map.Entry) entriesIterator.next();
+			int i = 0;
+			while (entriesIterator.hasNext()) {
 
-			aux[i] = mapping.getValue().toString();
+				Map.Entry mapping = (Map.Entry) entriesIterator.next();
 
-			i++;
+				aux[i] = mapping.getValue().toString();
+
+				i++;
+			}
+
+			String resultados = "SI: " + aux[0] + " NO: " + aux[1];
+
+			model.addAttribute("resultadosString", resultados);
+			model.addAttribute("resultados", aux);
 		}
-
-		String resultados = "SI: " + aux[0] + " NO: " + aux[1];
-
-		model.addAttribute("resultadosString", resultados);
-		model.addAttribute("resultados", aux);
 		return "/showResults";
 	}
 
