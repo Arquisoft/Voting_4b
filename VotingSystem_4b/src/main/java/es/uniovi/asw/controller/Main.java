@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.http.HttpSession;
 
@@ -67,6 +69,8 @@ public class Main {
 	@Autowired
 	private VoterAcces voterAccess;
 
+	private static final long TIEMPO_MS = 10000;
+
 	@RequestMapping("/")
 	public ModelAndView landing(Model model) {
 		LOG.info("Index page access");
@@ -97,11 +101,12 @@ public class Main {
 			return "esperarElecciones";
 		}
 
-		/*
-		 * List<PartidoPolitico> partidos = new ArrayList<PartidoPolitico>();
-		 * for (PartidoPolitico p : PartidoPolitico.values()) { partidos.add(p);
-		 * } model.addAttribute("partidos", partidos);
-		 */
+		List<Referendum> opciones = new ArrayList<Referendum>();
+		for (Referendum opcion : Referendum.values()) {
+			opciones.add(opcion);
+		}
+		model.addAttribute("opciones", opciones);
+
 		return "/votar";
 	}
 
@@ -109,11 +114,11 @@ public class Main {
 	public String saveVote(Voto voto, @ModelAttribute("opcion") String opcionVoto, Model model, HttpSession session) {// TODO
 																														// CAMBIO
 
-		/*
-		 * List<PartidoPolitico> partidos = new ArrayList<PartidoPolitico>();
-		 * for (PartidoPolitico p : PartidoPolitico.values()) { partidos.add(p);
-		 * } model.addAttribute("partidos", partidos);
-		 */
+		List<Referendum> opciones = new ArrayList<Referendum>();
+		for (Referendum opcion : Referendum.values()) {
+			opciones.add(opcion);
+		}
+		model.addAttribute("opciones", opciones);
 
 		if (session.getAttribute("usuario") != null) {
 			Voter voter = voterRepository.findByUsuario((String) session.getAttribute("usuario"));
@@ -146,7 +151,7 @@ public class Main {
 
 		// for (PartidoPolitico p : PartidoPolitico.values()) {
 		// if (p.toString().equals(partidoPolitico)) {
-		if (opcionVoto.equals(Referendum.SI) || opcionVoto.equals(Referendum.NO)) {
+		if (opcionVoto.equals(Referendum.SI.toString()) || opcionVoto.equals(Referendum.NO.toString())) {
 			Voto v = new Voto(null, opcionVoto, false, false, false);
 			votoRepository.save(v);
 			model.addAttribute("mensaje", "Ha votado correctamente");
@@ -397,36 +402,66 @@ public class Main {
 	public String showResults(Model model) {
 
 		// VOTOS DE PRUEBA
-		Voto votoSi = new Voto(null, Referendum.SI.toString(), false, false, false);
-		Voto votoNo = new Voto(null, Referendum.NO.toString(), false, false, false);
-		votoRepository.save(votoSi);
-		votoRepository.save(votoNo);
+		// Voto votoSi = new Voto(null, Referendum.SI.toString(), false, false,
+		// false);
+		// Voto votoNo = new Voto(null, Referendum.NO.toString(), false, false,
+		// false);
+		// votoRepository.save(votoSi);
+		// votoRepository.save(votoNo);
 		//
 
 		if (!votoRepository.findAll().isEmpty()) {
 
 			Calculate calculate = new Calculate(new DBVotes(votoRepository), new VotersTypeImpl());
 
-			String[] aux = new String[resultados.size()];
-			Set<Entry<String, Integer>> entries = resultados.entrySet();
-			Iterator<Entry<String, Integer>> entriesIterator = entries.iterator();
+			actualizar(model, calculate);
+			showPeriodico(model, calculate);
+		}
 
-			int i = 0;
-			while (entriesIterator.hasNext()) {
+		return "/showResults";
+	}
 
-				Map.Entry mapping = (Map.Entry) entriesIterator.next();
+	private void showPeriodico(Model model, Calculate calculate) {
 
-				aux[i] = mapping.getValue().toString();
+		Timer timer = new Timer();
+		TimerTask task = new TimerTask() {
 
-				i++;
+			@Override
+			public void run() {
+
+				actualizar(model, calculate);
 			}
 
-			String resultados = "SI: " + aux[0] + " NO: " + aux[1];
+		};
+		timer.schedule(task, 0, TIEMPO_MS);
 
-			model.addAttribute("resultadosString", resultados);
-			model.addAttribute("resultados", aux);
+	}
+
+	private void actualizar(Model model, Calculate calculate) {
+		calculate.recalcularYActualizarObjetosWeb();
+
+		String[] aux = new String[resultados.size()];
+		Set<Entry<String, Integer>> entries = resultados.entrySet();
+		Iterator<Entry<String, Integer>> entriesIterator = entries.iterator();
+
+		int i = 0;
+		while (entriesIterator.hasNext()) {
+
+			Map.Entry mapping = (Map.Entry) entriesIterator.next();
+
+			aux[i] = mapping.getValue().toString();
+
+			i++;
 		}
-		return "/showResults";
+
+		try {
+			String resultados = "SI: " + aux[0] + " NO: " + aux[1];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			
+		}
+
+		model.addAttribute("resultadosString", resultados);
+		model.addAttribute("resultados", aux);
 	}
 
 }

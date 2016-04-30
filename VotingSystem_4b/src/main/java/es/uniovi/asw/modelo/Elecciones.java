@@ -16,7 +16,7 @@ public class Elecciones {
 	private String nombre;
 	private Date fechaInicio;
 	private Date fechaFin;
-	private String opciones;//Cambiar a Arraylist
+	private String opciones;
 
 	public Elecciones(String nombre, Date fechaInicio, Date fechaFin, String opciones) {
 		super();
