@@ -1,7 +1,7 @@
 package es.uniovi.asw.Calculate;
 
 import es.uniovi.asw.Calculate.voters.VotersType;
-import es.uniovi.asw.WebController.WebObserver;
+import es.uniovi.asw.WebObserver.WebObserver;
 import es.uniovi.asw.service.GetVotes;
 
 public class Calculate {
@@ -24,4 +24,22 @@ public class Calculate {
 		obserber.actualizar(type.getResult());
 	}
 
+	public GetVotes getVots() {
+		return vots;
+	}
+
+	public void setVots(GetVotes vots) {
+		this.vots = vots;
+	}
+
+	public VotersType getType() {
+		return type;
+	}
+
+	public void setType(VotersType type) {
+		this.type = type;
+	}
+
+	
+	
 }

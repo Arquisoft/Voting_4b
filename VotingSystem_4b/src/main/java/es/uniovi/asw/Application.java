@@ -1,6 +1,7 @@
 package es.uniovi.asw;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import es.uniovi.asw.dbupdate.VoterRepository;
 import es.uniovi.asw.factoria.ParserFactory;
 import es.uniovi.asw.modelo.ColegioElectoral;
+import es.uniovi.asw.modelo.Elecciones;
 import es.uniovi.asw.modelo.Voter;
 import es.uniovi.asw.modelo.Voto;
 import es.uniovi.asw.parser.impl.CartasPDF;
@@ -62,17 +64,21 @@ public class Application {
 				} catch (Exception e) {
 					System.out.println("Excepcion..." + e);
 				}
-
-				
-				
 				
 				Voter pamela = new Voter("Pamela", "pamela@gmail.com",
 						"1111111A", 01, "pamela", "patata", false);
 				Voter juntaElectoral = new Voter("Junta Electoral",
 						"junta@gmail.com", "22222A", 01, "junta", "junta",
 						false);
+				
+				Voter dario = new Voter("Dario", "dario@gmail.com",
+						"1111111A", 01, "dario", "patata", false);
+				
+				Elecciones elecciones = new Elecciones("Eleccioes", new Date(2015, 01, 01), new Date(2018, 01, 01), "Si, No");
+				
 				repository.save(pamela);
 				repository.save(juntaElectoral);
+				repository.save(dario);
 				
 			}
 		};

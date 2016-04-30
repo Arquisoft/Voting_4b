@@ -8,8 +8,8 @@ import es.uniovi.asw.service.GetVotes;
 public interface VotersType {
 
 	public Map<String, Integer> getResult();
-
 	public void actualize(GetVotes votes);
+	public OptionType getTipo();
 	
 
 }

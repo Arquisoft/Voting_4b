@@ -26,7 +26,13 @@ public class VotersTypeImpl implements VotersType {
 				votes.updateVote(v.getId());// actualizamos el estado del voto
 			}
 		}
-
 	}
 
+	public OptionType getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(OptionType tipo) {
+		this.tipo = tipo;
+	}
 }

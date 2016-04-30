@@ -11,7 +11,7 @@
 
         <header>
             <h1>Resultados Elecciones 2016</h1>
-            <p id="subTitle">Última actualización: 20/04/2016 09:45</p>
+            <p th:text="${ultimaActualizacion}" id="subTitle" />
         </header>
 
         <p th:text="${resultadosString}" id="resultadoTexto"/>
@@ -26,12 +26,20 @@
            // pie chart data
             var pieData = [
                 {
-                    value: array[1],
+                    value: array[0],
+                    color : "#0000FF"
+                },
+                {
+                    value : array[1],
                     color: "#FF0000"
                 },
                 {
-                    value : array[0],
-                    color : "#0000FF"
+                    value : array[2],
+                    color : "#FFFF00"
+                },
+                {
+                    value : array[3],
+                    color : "#FFFFFF"
                 }
             ];
             // pie chart options

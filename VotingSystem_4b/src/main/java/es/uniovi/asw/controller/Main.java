@@ -2,11 +2,7 @@ package es.uniovi.asw.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -64,12 +60,18 @@ public class Main {
 	private ServerResponse serverResponse;
 
 	// Guarda un array con los resultados de las votaciones para mostrar
-	public static Map<String, Integer> resultados;
+	public static int[] resultados;
+	public static String mensajeResultado;
+	public static String fechaRefresco;
+
+	private boolean primerAccesoWeb = true;
+
+	private Calculate calculate;
 
 	@Autowired
 	private VoterAcces voterAccess;
 
-	private static final long TIEMPO_MS = 10000;
+	private static final long TIEMPO_MS = 3000;
 
 	@RequestMapping("/")
 	public ModelAndView landing(Model model) {
@@ -401,67 +403,62 @@ public class Main {
 	@RequestMapping("/showResults")
 	public String showResults(Model model) {
 
-		// VOTOS DE PRUEBA
-		// Voto votoSi = new Voto(null, Referendum.SI.toString(), false, false,
-		// false);
-		// Voto votoNo = new Voto(null, Referendum.NO.toString(), false, false,
-		// false);
-		// votoRepository.save(votoSi);
-		// votoRepository.save(votoNo);
-		//
-
-		if (!votoRepository.findAll().isEmpty()) {
-
-			Calculate calculate = new Calculate(new DBVotes(votoRepository), new VotersTypeImpl());
-
-			actualizar(model, calculate);
-			showPeriodico(model, calculate);
+		if (primerAccesoWeb) {
+			primerAccesoWeb = false;
+			cargarPrimerosDatosVotos();
+			calculate = new Calculate(new DBVotes(votoRepository), new VotersTypeImpl());
 		}
+
+		model.addAttribute("resultadosString", mensajeResultado);
+		model.addAttribute("resultados", resultados);
+		model.addAttribute("ultimaActualizacion", fechaRefresco);
+
+		Timer timer = new Timer();
+		timer.schedule(new TimerWebData(model), 0, TIEMPO_MS);
 
 		return "/showResults";
 	}
 
-	private void showPeriodico(Model model, Calculate calculate) {
+	// Clase timer que actualiza los datos de la web si han llegado nuevos datos
+	class TimerWebData extends TimerTask {
 
-		Timer timer = new Timer();
-		TimerTask task = new TimerTask() {
+		private Model model;
 
-			@Override
-			public void run() {
+		public TimerWebData(Model model) {
+			super();
+			this.model = model;
+		}
 
-				actualizar(model, calculate);
-			}
+		public void run() {
+			votoRepository.save(new Voto(null, null, false, true, false));
+			actualizar(model);
+		}
 
-		};
-		timer.schedule(task, 0, TIEMPO_MS);
+		private void actualizar(Model model) {
+			calculate.recalcularYActualizarObjetosWeb();
+			model.addAttribute("resultadosString", mensajeResultado);
+			model.addAttribute("resultados", resultados);
+			model.addAttribute("ultimaActualizacion", fechaRefresco);
 
+		}
 	}
 
-	private void actualizar(Model model, Calculate calculate) {
-		calculate.recalcularYActualizarObjetosWeb();
+	private void cargarPrimerosDatosVotos() {
+		// VOTOS DE PRUEBA QUE TIENEN QUE ESTAR DEL CONTEO DIGITAL
+		Voto votoSi = new Voto(null, Referendum.SI.toString(), false, false, false);
+		Voto votoSi2 = new Voto(null, Referendum.SI.toString(), false, false, false);
+		Voto votoNo = new Voto(null, Referendum.NO.toString(), false, false, false);
+		Voto votoNulo = new Voto(null, null, false, true, false);
 
-		String[] aux = new String[resultados.size()];
-		Set<Entry<String, Integer>> entries = resultados.entrySet();
-		Iterator<Entry<String, Integer>> entriesIterator = entries.iterator();
+		Voto votoBlanco1 = new Voto(null, null, false, false, true);
+		Voto votoBlanco2 = new Voto(null, null, false, true, true);
 
-		int i = 0;
-		while (entriesIterator.hasNext()) {
-
-			Map.Entry mapping = (Map.Entry) entriesIterator.next();
-
-			aux[i] = mapping.getValue().toString();
-
-			i++;
-		}
-
-		try {
-			String resultados = "SI: " + aux[0] + " NO: " + aux[1];
-		} catch (ArrayIndexOutOfBoundsException e) {
-			
-		}
-
-		model.addAttribute("resultadosString", resultados);
-		model.addAttribute("resultados", aux);
+		votoRepository.save(votoSi);
+		votoRepository.save(votoSi2);
+		votoRepository.save(votoNo);
+		votoRepository.save(votoNulo);
+		votoRepository.save(votoBlanco1);
+		votoRepository.save(votoBlanco2);
 	}
 
 }
