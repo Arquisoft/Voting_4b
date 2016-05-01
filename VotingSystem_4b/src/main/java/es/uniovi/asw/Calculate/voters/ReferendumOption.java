@@ -29,6 +29,7 @@ public class ReferendumOption implements OptionType {
 				recuento.put("NO", recuento.get("NO").intValue() + 1);
 				break;
 			default:
+				recuento.put("NULO", recuento.get("NULO").intValue() + 1);
 				break;
 			}
 		} else if (vote.isBlanco()){

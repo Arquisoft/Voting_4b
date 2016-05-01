@@ -10,6 +10,7 @@ Voting System
 # Authors
 
 * Mónica Cueva González
+* Raúl Rodríguez Rodríguez
 * Jose Labra
 
 
