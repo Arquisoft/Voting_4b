@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
 import es.uniovi.asw.UserInfo;
 import es.uniovi.asw.Calculate.Calculate;
 import es.uniovi.asw.Calculate.voters.VotersTypeImpl;
@@ -63,6 +65,7 @@ public class Main {
 	public static int[] resultados;
 	public static String mensajeResultado;
 	public static String fechaRefresco;
+	public static int numeroVotosContabilizados;
 
 	private boolean primerAccesoWeb = true;
 
@@ -72,6 +75,7 @@ public class Main {
 	private VoterAcces voterAccess;
 
 	private static final long TIEMPO_MS = 3000;
+	public static final int MAX_VOTOS_PERMITIDOS = 5000;
 
 	@RequestMapping("/")
 	public ModelAndView landing(Model model) {
@@ -407,16 +411,33 @@ public class Main {
 			primerAccesoWeb = false;
 			cargarPrimerosDatosVotos();
 			calculate = new Calculate(new DBVotes(votoRepository), new VotersTypeImpl());
+			numeroVotosContabilizados = calculate.getType().getTipo().nVoto();
 		}
 
-		model.addAttribute("resultadosString", mensajeResultado);
-		model.addAttribute("resultados", resultados);
-		model.addAttribute("ultimaActualizacion", fechaRefresco);
-
+		preparaModelo(model);
+		
 		Timer timer = new Timer();
 		timer.schedule(new TimerWebData(model), 0, TIEMPO_MS);
-
 		return "/showResults";
+	}
+	
+	private void preparaModelo(Model model) {
+		model.addAttribute("resultadosString", mensajeResultado);
+		model.addAttribute("resultados", resultados);
+		model.addAttribute("ultimaActualizacion", "Ultima actualizacion: " + fechaRefresco);
+		model.addAttribute("votosContabilizados",
+				"Votos contabilizados hasta el momento: " + numeroVotosContabilizados);
+		
+		boolean refrescar = true;
+		
+		// Se da por hecho que se llegan a introducir 5000 votos como máximo, es un limite
+		// artificl porque sino se sabriamos cuando para de meter datos simulados de los
+		// puntos de voto fisicos
+		if (numeroVotosContabilizados >= MAX_VOTOS_PERMITIDOS) {
+			refrescar = false;
+		}
+		
+		model.addAttribute("refrescar", refrescar);
 	}
 
 	// Clase timer que actualiza los datos de la web si han llegado nuevos datos
@@ -430,16 +451,50 @@ public class Main {
 		}
 
 		public void run() {
-			votoRepository.save(new Voto(null, null, false, true, false));
+			// Se da por hecho que se llegan a introducir 5000 votos como máximo, es un limite
+			// artificl porque sino se sabriamos cuando para de meter datos simulados de los
+			// puntos de voto fisicos
+			if (calculate.getType().getTipo().nVoto() >= MAX_VOTOS_PERMITIDOS) {
+				cancel();
+				return;
+			}
+			agregarVotosAleatorios();
 			actualizar(model);
 		}
 
 		private void actualizar(Model model) {
-			calculate.recalcularYActualizarObjetosWeb();
-			model.addAttribute("resultadosString", mensajeResultado);
-			model.addAttribute("resultados", resultados);
-			model.addAttribute("ultimaActualizacion", fechaRefresco);
+			// Se actualiza si en la base de datos hay mas votos de los que se
+			// han contado
+			// hasta el momento
+			if (calculate.getType().getTipo().nVoto() < votoRepository.count()) {
+				calculate.recalcularYActualizarObjetosWeb();
+				numeroVotosContabilizados = calculate.getType().getTipo().nVoto();
+				preparaModelo(model);
+			}
+		}
 
+		private void agregarVotosAleatorios() {
+			int randomIndex = (int) (Math.random() * 40);
+			for (int i = randomIndex; i < 20; i++) {
+				int random = (int) (Math.random() * 4);
+				switch (random) {
+				case 0:
+					votoRepository.save(new Voto(null, "Si", false, false, false));
+					votoRepository.save(new Voto(null, "Si", false, false, false));
+					votoRepository.save(new Voto(null, "si", false, false, false));
+					break;
+				case 1:
+					votoRepository.save(new Voto(null, "No", false, true, false));
+					break;
+				case 2:
+					votoRepository.save(new Voto(null, null, false, false, true));
+					break;
+				case 3:
+					votoRepository.save(new Voto(null, null, false, true, false));
+					break;
+
+				}
+			}
 		}
 	}
 

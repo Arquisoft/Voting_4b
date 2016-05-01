@@ -7,11 +7,12 @@
         <script src='js/Chart.js'></script>
         <link type="text/css" href="css/showResultsStyle.css" rel="stylesheet"/>
     </head>
-    <body>
+    <body onload="funcionTimer()">
 
         <header>
             <h1>Resultados Elecciones 2016</h1>
             <p th:text="${ultimaActualizacion}" id="subTitle" />
+            <p th:text="${votosContabilizados}" id="subTitle2"/>
         </header>
 
         <p th:text="${resultadosString}" id="resultadoTexto"/>
@@ -53,7 +54,15 @@
 
             // draw pie chart
             new Chart(resultadosPie).Pie(pieData, pieOptions);
-
+	
+            
+            function funcionTimer() {
+                setTimeout(function(){ 
+                	if ([[${refrescar}]]) {
+                 		window.location.reload();
+                }; }, 3000);
+            }
+            
         </script>
     </body>
 </html>
