@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import es.uniovi.asw.UserInfo;
 import es.uniovi.asw.Calculate.Calculate;
@@ -96,8 +95,6 @@ public class Main {
 				model.addAttribute("mensaje", "Por favor, espere a que se inicien las elecciones");
 				return "esperarElecciones";
 			} else if (e.getFechaFin().before(hoy)) {
-				LOG.info(e.getFechaFin().toString());
-				LOG.info(hoy.toString());
 				model.addAttribute("mensaje", "Las elecciones ya han finalizado, espere a unas nuevas elecciones");
 				return "esperarElecciones";
 			}
@@ -406,6 +403,22 @@ public class Main {
 
 	@RequestMapping("/showResults")
 	public String showResults(Model model) {
+		
+		List<Elecciones> elecciones = eleccionesRepository.findAll();
+		if (!elecciones.isEmpty()) {
+			Elecciones e = elecciones.get(0);
+			Date hoy = new Date();
+			if (!e.getFechaFin().before(hoy)) {
+				model.addAttribute("mensaje", "Por favor, espere para ver los resultados, las elecciones aún no han finalizado");
+				return "esperarElecciones";
+			}
+		} else {
+			model.addAttribute("mensaje",
+					"Aún no se han añadido elecciones." + "Por favor, espere a unas nuevas elecciones.");
+			return "esperarElecciones";
+		}
+		
+		
 
 		if (primerAccesoWeb) {
 			primerAccesoWeb = false;
