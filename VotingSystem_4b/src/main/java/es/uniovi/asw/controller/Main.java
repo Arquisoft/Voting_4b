@@ -418,8 +418,7 @@ public class Main {
 			return "esperarElecciones";
 		}
 		
-		
-
+	
 		if (primerAccesoWeb) {
 			primerAccesoWeb = false;
 			cargarPrimerosDatosVotos();
