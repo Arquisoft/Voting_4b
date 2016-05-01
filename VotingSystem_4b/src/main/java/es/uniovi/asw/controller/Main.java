@@ -417,7 +417,7 @@ public class Main {
 					"Aún no se han añadido elecciones." + "Por favor, espere a unas nuevas elecciones.");
 			return "esperarElecciones";
 		}
-		
+		 
 	
 		if (primerAccesoWeb) {
 			primerAccesoWeb = false;
