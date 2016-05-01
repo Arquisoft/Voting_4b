@@ -412,7 +412,7 @@ public class Main {
 				model.addAttribute("mensaje", "Por favor, espere para ver los resultados, las elecciones aún no han finalizado");
 				return "esperarElecciones";
 			}
-		} else {
+		} else { 
 			model.addAttribute("mensaje",
 					"Aún no se han añadido elecciones." + "Por favor, espere a unas nuevas elecciones.");
 			return "esperarElecciones";
