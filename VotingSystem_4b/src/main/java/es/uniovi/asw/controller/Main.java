@@ -151,8 +151,6 @@ public class Main {
 		}
 		boolean encontrado = false;
 
-		// for (PartidoPolitico p : PartidoPolitico.values()) {
-		// if (p.toString().equals(partidoPolitico)) {
 		if (opcionVoto.equals(Referendum.SI.toString()) || opcionVoto.equals(Referendum.NO.toString())) {
 			Voto v = new Voto(null, opcionVoto, false, false, false);
 			votoRepository.save(v);
@@ -304,7 +302,6 @@ public class Main {
 		}
 	}
 
-	// Parte Voters
 
 	@RequestMapping("/WelcomePage")
 	public String voterInicioSesion(Model model) {
