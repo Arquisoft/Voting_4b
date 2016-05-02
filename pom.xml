@@ -16,10 +16,7 @@
 	</parent>
 
     <modules>
-    <module>censuses_4b</module>
-    <module>voters_4b</module>
     <module>VotingSystem_4b</module>
-    <module>VoteCounting_4b</module>
     </modules>
 	
 	<dependencies>
