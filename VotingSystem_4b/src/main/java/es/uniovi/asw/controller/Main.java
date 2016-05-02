@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import es.uniovi.asw.UserInfo;
 import es.uniovi.asw.Calculate.Calculate;
 import es.uniovi.asw.Calculate.voters.VotersTypeImpl;
@@ -73,8 +72,8 @@ public class Main {
 	@Autowired
 	private VoterAcces voterAccess;
 
-	private static final long TIEMPO_MS = 3000;
-	public static final int MAX_VOTOS_PERMITIDOS = 5000;
+	private static final long TIEMPO_MS = 12000;
+	public static final int MAX_VOTOS_PERMITIDOS = 50000;
 
 	@RequestMapping("/")
 	public ModelAndView landing(Model model) {
@@ -403,22 +402,22 @@ public class Main {
 
 	@RequestMapping("/showResults")
 	public String showResults(Model model) {
-		
+
 		List<Elecciones> elecciones = eleccionesRepository.findAll();
 		if (!elecciones.isEmpty()) {
 			Elecciones e = elecciones.get(0);
 			Date hoy = new Date();
 			if (!e.getFechaFin().before(hoy)) {
-				model.addAttribute("mensaje", "Por favor, espere para ver los resultados, las elecciones aún no han finalizado");
+				model.addAttribute("mensaje",
+						"Por favor, espere para ver los resultados, las elecciones aún no han finalizado");
 				return "esperarElecciones";
 			}
-		} else { 
+		} else {
 			model.addAttribute("mensaje",
 					"Aún no se han añadido elecciones." + "Por favor, espere a unas nuevas elecciones.");
 			return "esperarElecciones";
 		}
-		 
-	
+
 		if (primerAccesoWeb) {
 			primerAccesoWeb = false;
 			cargarPrimerosDatosVotos();
@@ -427,28 +426,40 @@ public class Main {
 		}
 
 		preparaModelo(model);
-		
+
 		Timer timer = new Timer();
 		timer.schedule(new TimerWebData(model), 0, TIEMPO_MS);
 		return "/showResults";
 	}
-	
+
 	private void preparaModelo(Model model) {
+		model.addAttribute("nombreElecciones", eleccionesRepository.findAll().get(0).getNombre());
 		model.addAttribute("resultadosString", mensajeResultado);
 		model.addAttribute("resultados", resultados);
 		model.addAttribute("ultimaActualizacion", "Ultima actualizacion: " + fechaRefresco);
 		model.addAttribute("votosContabilizados",
 				"Votos contabilizados hasta el momento: " + numeroVotosContabilizados);
-		
+
 		boolean refrescar = true;
-		
-		// Se da por hecho que se llegan a introducir 5000 votos como máximo, es un limite
-		// artificl porque sino se sabriamos cuando para de meter datos simulados de los
+
+		// Se da por hecho que se llegan a introducir 5000 votos como máximo, es
+		// un limite
+		// artificl porque sino se sabriamos cuando para de meter datos
+		// simulados de los
 		// puntos de voto fisicos
 		if (numeroVotosContabilizados >= MAX_VOTOS_PERMITIDOS) {
 			refrescar = false;
+			double si = ((double) resultados[0] / (double) numeroVotosContabilizados) * 100;
+			double no = ((double) resultados[1] / (double) numeroVotosContabilizados) * 100;
+			double blanco = ((double) resultados[2] / (double) numeroVotosContabilizados) * 100;
+			double nulo = ((double) resultados[3] / (double) numeroVotosContabilizados) * 100;
+			model.addAttribute("porcentajes", "Si: " + Math.round(si) + "% - No: " + Math.round(no) + "% - En blanco: "
+					+ Math.round(blanco) + "% - Nulo: " + Math.round(nulo) + "%");
+			model.addAttribute("nombreElecciones", eleccionesRepository.findAll().get(0).getNombre() + " - Elecciones Finalizadas");
+			model.addAttribute("votosContabilizados",
+					"Total de votos contabilizados: " + numeroVotosContabilizados);
 		}
-		
+
 		model.addAttribute("refrescar", refrescar);
 	}
 
@@ -463,8 +474,10 @@ public class Main {
 		}
 
 		public void run() {
-			// Se da por hecho que se llegan a introducir 5000 votos como máximo, es un limite
-			// artificl porque sino se sabriamos cuando para de meter datos simulados de los
+			// Se da por hecho que se llegan a introducir 5000 votos como
+			// máximo, es un limite
+			// artificl porque sino se sabriamos cuando para de meter datos
+			// simulados de los
 			// puntos de voto fisicos
 			if (calculate.getType().getTipo().nVoto() >= MAX_VOTOS_PERMITIDOS) {
 				cancel();
@@ -487,7 +500,7 @@ public class Main {
 
 		private void agregarVotosAleatorios() {
 			int randomIndex = (int) (Math.random() * 40);
-			for (int i = randomIndex; i < 20; i++) {
+			for (int i = randomIndex; i < 200; i++) {
 				int random = (int) (Math.random() * 4);
 				switch (random) {
 				case 0:
