@@ -1,12 +1,12 @@
-package es.uniovi.asw.parser.impl;
+package es.uniovi.asw.generador.impl;
 
 import java.io.*;
 
 import com.itextpdf.text.*;
 
 import es.uniovi.asw.factoria.WriterFactory;
+import es.uniovi.asw.generador.GeneradorCartas;
 import es.uniovi.asw.modelo.Voter;
-import es.uniovi.asw.parser.GeneradorCartas;
 import es.uniovi.asw.reportwriter.impl.WriterReportImpl;
 
 /**

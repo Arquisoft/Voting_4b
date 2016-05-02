@@ -1,7 +1,7 @@
-package es.uniovi.asw.parser.impl;
+package es.uniovi.asw.generador.impl;
 
+import es.uniovi.asw.generador.GeneradorPasswords;
 import es.uniovi.asw.modelo.Voter;
-import es.uniovi.asw.parser.GeneradorPasswords;
 
 public class GeneradorPasswordsImpl implements GeneradorPasswords {
 

@@ -5,11 +5,11 @@ import java.io.IOException;
 import com.itextpdf.text.DocumentException;
 
 import es.uniovi.asw.dbupdate.VoterRepository;
+import es.uniovi.asw.generador.GeneradorCartas;
+import es.uniovi.asw.generador.impl.CartasPDF;
+import es.uniovi.asw.generador.impl.CartasTXT;
 import es.uniovi.asw.modelo.Voter;
-import es.uniovi.asw.parser.GeneradorCartas;
 import es.uniovi.asw.parser.ReadCensus;
-import es.uniovi.asw.parser.impl.CartasPDF;
-import es.uniovi.asw.parser.impl.CartasTXT;
 import es.uniovi.asw.parser.impl.LeerFicheroXlsx;
 
 public class ParserFactory {
