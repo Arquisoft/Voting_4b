@@ -41,10 +41,8 @@ public class MainControllerTest {
 
   
   @Test
-  public void testVotar() throws Exception {
-    mvc.perform(get("/votar")).andExpect(status().isOk()).andExpect(content().string(containsString("Votar")));
-    mvc.perform(get("/votar")).andExpect(status().isOk()).andExpect(content().string(containsString("Opcion")));
-    mvc.perform(get("/votar")).andExpect(status().isOk()).andExpect(content().string(containsString("VOTAR")));
+  public void testVotarSinElecciones() throws Exception {
+    mvc.perform(get("/votar")).andExpect(status().isOk()).andExpect(content().string(containsString("Aún no se han añadido elecciones.Por favor, espere a unas nuevas elecciones.")));
   }
   
   
