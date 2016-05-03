@@ -20,7 +20,7 @@
 	<div th:replace="fragments/header :: cabecera"></div>
 
 	<div align="center">
-		<h2>Modificar elecciones</h2>
+		<h2>Crear elecciones</h2>
 		<form id="modificar-form" action="#"
 			th:action="@{/modificar_elecciones}" method="post"
 			th:object="${elecciones}">
@@ -35,13 +35,13 @@
 				class="etiqueta_fecha_final" for="fecha_final"> Fecha final
 				de las elecciones: </label> <input id="fecha_final" class="fecha_final"
 				type="text" th:field="*{fechaFin}" placeholder="aaaa/mm/dd hh:mm" />
-			<br></br> <input class="opciones_voto" placeholder="Opciones de voto"
-				type="text" th:field="*{opciones}" /> <br></br> <br></br> <br></br>
+			<br></br> <br></br> <br></br>
+
 
 			<a href="add_colegio.html" class="boton_add_colegio"> AÑADIR
 				COLEGIO ELECTORAL</a> <br></br> <br></br> <br></br>
 
-			<button type="submit" class="boton_modificar">MODIFICAR</button>
+			<button type="submit" class="boton_modificar">CREAR</button>
 
 
 		</form>

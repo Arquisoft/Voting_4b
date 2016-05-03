@@ -215,7 +215,7 @@ public class Main {
 	public String addElecciones(Elecciones elecciones, Model model) {
 		LOG.info("Modificar elecciones page access");
 		try {
-			if (elecciones.getNombre() != null && elecciones.getOpciones() != null
+			if (elecciones.getNombre() != null 
 					&& elecciones.getFechaInicio() instanceof Date && elecciones.getFechaFin() instanceof Date
 					&& elecciones.getFechaFin().after(elecciones.getFechaInicio())) {
 
@@ -224,7 +224,7 @@ public class Main {
 					for (Elecciones e : listaElecciones) {
 						if (!e.getNombre().equals(elecciones.getNombre())) {
 							Elecciones eleccion = new Elecciones(elecciones.getNombre(), elecciones.getFechaInicio(),
-									elecciones.getFechaFin(), elecciones.getOpciones());
+									elecciones.getFechaFin());
 							eleccionesRepository.save(eleccion);
 							model.addAttribute("mensaje",
 									"Se han convocado las nuevas elecciones con nombre: " + elecciones.getNombre());
@@ -234,7 +234,7 @@ public class Main {
 					}
 				} else {
 					Elecciones eleccion = new Elecciones(elecciones.getNombre(), elecciones.getFechaInicio(),
-							elecciones.getFechaFin(), elecciones.getOpciones());
+							elecciones.getFechaFin());
 					eleccionesRepository.save(eleccion);
 					model.addAttribute("mensaje",
 							"Se han convocado las nuevas elecciones con nombre: " + elecciones.getNombre());
