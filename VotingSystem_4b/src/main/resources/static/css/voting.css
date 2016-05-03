@@ -8,21 +8,20 @@ h1 {
 	color: #eee;
 }
 
-h2{
-
+h2 {
 	margin-top: 1%;
 	font-size: 40px;
 	font-weight: 200;
 	color: #eee;
-	font-style:oblique;
+	font-style: oblique;
 }
 
-img{
-	margin-top:5%;
- 	width: 15%;	
+img {
+	margin-top: 5%;
+	width: 15%;
 }
 
-p{
+p {
 	margin-top: 5%;
 	color: #eee;
 	font-size: 18px;
@@ -55,31 +54,31 @@ body, html {
 	font-size: 200px;
 }
 
-.boton_cerrar{
-	margin-top:1%;
-	margin-left:95%;
+.boton_cerrar {
+	margin-top: 1%;
+	margin-left: 95%;
 	background-color: transparent;
 	border: none;
-    cursor:pointer;
-    overflow: hidden;
-    color: #fff;
-    font-size: 50px;
-    outline: none;
-
+	cursor: pointer;
+	overflow: hidden;
+	color: #fff;
+	font-size: 50px;
+	outline: none;
 }
 
-.cerrar_sesion_body{
+.cerrar_sesion_body {
 	margin-top: -5%;
 }
+
 #votarPerfil {
 	margin-right: 35%;
 }
 
-#resultados{
+#resultados {
 	margin-right: 20%;
 }
 
-#perfil_votante{
+#perfil_votante {
 	margin-left: 35%;
 }
 
@@ -115,7 +114,8 @@ a.tooltip:hover span {
 	font-family: futura;
 }
 
-.boton_add_colegio, .boton_colegio ,.boton_login, .boton_change , .boton_save{
+.boton_add_colegio, .boton_colegio, .boton_login, .boton_change,
+	.boton_save, .boton_add_referendum, .boton_add_otras_elecciones {
 	font-size: 17px;
 	text-decoration: none;
 	padding: 0.50em 1.10em 0.50em 1.50em;
@@ -136,7 +136,8 @@ a:-webkit-any-link {
 
 button.boton_votar:hover, button.boton_modificar:hover, a.boton_add_colegio:hover,
 	button.boton_colegio:hover, button.boton_login:hover, button.boton_change:hover,
-	 button.boton_save:hover {
+	button.boton_save:hover, a.boton_add_referendum:hover, a.boton_add_otras_elecciones:hover
+	{
 	background: #310B54;
 }
 
@@ -144,13 +145,11 @@ button.boton_votar:hover, button.boton_modificar:hover, a.boton_add_colegio:hove
 	margin-top: 5%;
 }
 
-#field2, .boton_login{
-	margin-top:1%;
+#field2, .boton_login {
+	margin-top: 1%;
 }
 
-
-
-.input_opcion{
+.input_opcion {
 	color: #734A99;
 	outline: none;
 	border: none;
@@ -195,26 +194,27 @@ button.boton_votar:hover, button.boton_modificar:hover, a.boton_add_colegio:hove
 	text-align: center;
 }
 
-.nombre_elecciones, .nombre_partido, .cod_colegio,
- .lista_opciones, .boton_save {
+.nombre_elecciones, .nombre_partido, .cod_colegio, .lista_opciones,
+	.boton_save {
 	margin-top: 3%;
 }
 
 input.input_opcion:focus, input.nombre_elecciones:focus, input.opciones_voto:focus,
 	input.fecha_inicial:focus, input.fecha_final:focus, input.hora_inicial:focus,
 	input.hora_final:focus, input.nombre_partido:focus, input.cod_colegio:focus,
-	input.circunscripcion_colegio:focus, input.ca_colegio:focus, input#field1:focus,  input#field2:focus {
+	input.circunscripcion_colegio:focus, input.ca_colegio:focus, input#field1:focus,
+	input#field2:focus {
 	box-shadow: 10px 2px 50px #000;
 	transform: scale(1.5, 1.5);
 }
 
 .etiqueta_fecha_inicial, .etiqueta_fecha_final, .lista_opciones,
-	.etiqueta_cod_colegio, .etiqueta_email, .etiqueta_password, .etiqueta_password_change{
+	.etiqueta_cod_colegio, .etiqueta_email, .etiqueta_password,
+	.etiqueta_password_change {
 	font-size: 25px;
 	font-weight: 100;
 	color: #eee;
 }
-
 
 .lista_opciones, .etiqueta_cod_colegio {
 	font-size: 18px;
@@ -233,8 +233,8 @@ table {
 	width: 8%;
 }
 
-.tabla_info_page{
-	width:35%;
+.tabla_info_page {
+	width: 35%;
 }
 
 input[name=volver_atras] {
@@ -246,15 +246,14 @@ input[name=volver_atras] {
 	cursor: pointer;
 }
 
-
-.icono_return{
+.icono_return {
 	outline: none;
 	border: none;
-	margin-left:5%;
+	margin-left: 5%;
 }
 
 .mostrar_mensaje {
-	margin-top:3%;
+	margin-top: 3%;
 	font-size: 25px;
 	font-weight: 100;
 	color: #eee;

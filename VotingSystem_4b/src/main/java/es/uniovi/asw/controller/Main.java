@@ -343,7 +343,7 @@ public class Main {
 			session.setAttribute("usuario", usuarioConectado.getUsuario());
 			if (usuarioConectado.getUsuario().equals("junta")) {
 				LOG.info("Se ha iniciado sesión como Junta Electoral");
-				return "modificar_elecciones";
+				return "elecciones_tipo";
 			} else {
 				ArrayList<Object> atributos = new ArrayList<>();
 				atributos.add(this.serverResponse);
@@ -378,6 +378,19 @@ public class Main {
 		session.invalidate();
 		return "index";
 
+	}
+	
+	
+//	@RequestMapping("/elecciones_tipo")
+//	public String addEleccionesTipo(Model model, Elecciones elecciones) {
+//		LOG.info("Acceso a página seleccionar tipo de elecciones");
+//		return "elecciones_tipo";
+//	}
+	
+	@RequestMapping("/esperar_tipos")
+	public String esperarTipos(Model model) {
+		LOG.info("Acceso a página esperar que se creen nuevos tipos de elecciones");
+		return "esperar_tipos";
 	}
 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
