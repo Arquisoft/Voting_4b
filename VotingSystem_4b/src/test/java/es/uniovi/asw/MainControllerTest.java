@@ -43,18 +43,17 @@ public class MainControllerTest {
   @Test
   public void testVotar() throws Exception {
     mvc.perform(get("/votar")).andExpect(status().isOk()).andExpect(content().string(containsString("Votar")));
-    mvc.perform(get("/votar")).andExpect(status().isOk()).andExpect(content().string(containsString("Partido")));
+    mvc.perform(get("/votar")).andExpect(status().isOk()).andExpect(content().string(containsString("Opcion")));
     mvc.perform(get("/votar")).andExpect(status().isOk()).andExpect(content().string(containsString("VOTAR")));
   }
   
   
   @Test
   public void testModificar() throws Exception {
-    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("Modificar elecciones")));
+    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("Crear elecciones")));
     mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("Nombre de las elecciones")));
-    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("Opciones de voto")));
     mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("AÑADIR COLEGIO ELECTORAL")));
-    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("MODIFICAR")));
+    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("CREAR")));
   }
   
   @Test
