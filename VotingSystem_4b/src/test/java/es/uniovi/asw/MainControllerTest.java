@@ -50,13 +50,13 @@ public class MainControllerTest {
   public void testModificar() throws Exception {
     mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("Crear elecciones")));
     mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("Nombre de las elecciones")));
-    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("AÑADIR COLEGIO ELECTORAL")));
+    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("NUEVO COLEGIO ELECTORAL")));
     mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("CREAR")));
   }
   
   @Test
   public void testColegio() throws Exception {
-    mvc.perform(get("/add_colegio")).andExpect(status().isOk()).andExpect(content().string(containsString("Añadir colegio electoral")));
+    mvc.perform(get("/add_colegio")).andExpect(status().isOk()).andExpect(content().string(containsString("Nuevo colegio electoral")));
     mvc.perform(get("/add_colegio")).andExpect(status().isOk()).andExpect(content().string(containsString("Circunscripción")));
     mvc.perform(get("/add_colegio")).andExpect(status().isOk()).andExpect(content().string(containsString("Comunidad Autónoma")));
     mvc.perform(get("/add_colegio")).andExpect(status().isOk()).andExpect(content().string(containsString("AÑADIR")));

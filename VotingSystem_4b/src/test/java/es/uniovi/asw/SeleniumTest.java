@@ -53,7 +53,7 @@ public class SeleniumTest {
 
 		// Esperamos a que se cargue la pagina de añadir colegio
 		SeleniumUtils.EsperaCargaPagina(driver, "text",
-				"colegio electoral", 10);
+				"Nuevo colegio electoral", 10);
 
 		// Vamos a rellenar el formulario
 		new PO_colegio().rellenaFormulario(driver, "10000", "Asturias",
@@ -61,11 +61,11 @@ public class SeleniumTest {
 
 		// Esperamos a que se cargue la pagina de añadir colegio
 		SeleniumUtils.EsperaCargaPagina(driver, "text",
-				"colegio electoral", 10);
+				"Nuevo colegio electoral", 10);
 
 		// Comprobamos que aparezca el mensaje en la página
 		SeleniumUtils.textoPresentePagina(driver,
-				"el nuevo colegio electoral con código:");
+				"Se ha insertado el nuevo colegio electoral con código:");
 	}
 
 	private void loginModificar() {
