@@ -345,9 +345,9 @@ public class Main {
 						colegioElectoral.getComunidadAutonoma());
 				colegioRepository.save(c);
 				model.addAttribute("mensaje",
-						"Se ha añadido el nuevo colegio electoral con código: "
+						"Se ha insertado el nuevo colegio electoral con código: "
 								+ c.getCodigoColegio());
-				LOG.info("Se ha añadido un nuevo colegio electoral");
+				LOG.info("Se ha insertado un nuevo colegio electoral");
 			} else {
 				for (ColegioElectoral colegioElectoral2 : colegios) {
 					if (colegioElectoral.getCodigoColegio() != colegioElectoral2
@@ -358,15 +358,15 @@ public class Main {
 								colegioElectoral.getComunidadAutonoma());
 						colegioRepository.save(c);
 						model.addAttribute("mensaje",
-								"Se ha añadido el nuevo colegio electoral con código: "
+								"Se ha insertado el nuevo colegio electoral con código: "
 										+ c.getCodigoColegio());
-						LOG.info("Se ha añadido un nuevo colegio electoral");
+						LOG.info("Se ha insertado un nuevo colegio electoral");
 						return "/add_colegio";
 
 					} else {
 						model.addAttribute("mensaje",
-								"No se ha podido añadir el colegio electoral");
-						LOG.info("Error, no se ha podido añadir el colegio electoral");
+								"No se ha podido insertar el colegio electoral");
+						LOG.info("Error, no se ha podido insertar el colegio electoral");
 						return "/add_colegio";
 
 					}
