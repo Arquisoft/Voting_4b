@@ -153,7 +153,8 @@ public class Main {
 		}
 		boolean encontrado = false;
 
-		if (opcionVoto.equals(Referendum.SI.toString()) || opcionVoto.equals(Referendum.NO.toString())) {
+		if (opcionVoto.toLowerCase().equals(Referendum.SI.toString().toLowerCase()) 
+				|| opcionVoto.toLowerCase().equals(Referendum.NO.toString().toLowerCase())) {
 			
 			if (session.getAttribute("usuario") != null) {
 				Voter voter = voterRepository.findByUsuario((String) session.getAttribute("usuario"));
