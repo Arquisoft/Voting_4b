@@ -12,12 +12,12 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import es.uniovi.asw.dbupdate.VoterRepository;
-import es.uniovi.asw.factoria.ParserFactory;
-import es.uniovi.asw.generador.impl.CartasPDF;
-import es.uniovi.asw.generador.impl.CartasTXT;
-import es.uniovi.asw.modelo.Voter;
-import es.uniovi.asw.parser.impl.LeerFicheroXlsx;
+import es.uniovi.asw.DBManagement.modelo.Voter;
+import es.uniovi.asw.DBManagement.repository.VoterRepository;
+import es.uniovi.asw.Parser.LeerFicheroXlsx;
+import es.uniovi.asw.Parser.ParserFactory;
+import es.uniovi.asw.Parser.Generador.impl.CartasPDF;
+import es.uniovi.asw.Parser.Generador.impl.CartasTXT;
 
 @EnableAutoConfiguration
 @SpringBootApplication

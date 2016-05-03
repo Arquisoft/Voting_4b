@@ -3,7 +3,7 @@ package es.uniovi.asw.Calculate.voters;
 import java.util.HashMap;
 import java.util.Map;
 
-import es.uniovi.asw.modelo.Voto;
+import es.uniovi.asw.DBManagement.modelo.Voto;
 
 public class ReferendumOption implements OptionType {
 	private Map<String, Integer> recuento;

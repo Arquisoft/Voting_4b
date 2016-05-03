@@ -23,20 +23,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.uniovi.asw.UserInfo;
 import es.uniovi.asw.Calculate.Calculate;
+import es.uniovi.asw.Calculate.DBVotes;
 import es.uniovi.asw.Calculate.voters.VotersTypeImpl;
-import es.uniovi.asw.modelo.Gizmo;
-import es.uniovi.asw.modelo.ServerResponse;
-import es.uniovi.asw.service.DBVotes;
-import es.uniovi.asw.service.VoterAcces;
-import es.uniovi.asw.dbupdate.ColegioRepository;
-import es.uniovi.asw.dbupdate.EleccionesRepository;
-import es.uniovi.asw.dbupdate.VoterRepository;
-import es.uniovi.asw.dbupdate.VotoRepository;
-import es.uniovi.asw.modelo.ColegioElectoral;
-import es.uniovi.asw.modelo.Elecciones;
-import es.uniovi.asw.modelo.Referendum;
-import es.uniovi.asw.modelo.Voter;
-import es.uniovi.asw.modelo.Voto;
+import es.uniovi.asw.DBManagement.modelo.ColegioElectoral;
+import es.uniovi.asw.DBManagement.modelo.Elecciones;
+import es.uniovi.asw.DBManagement.modelo.Gizmo;
+import es.uniovi.asw.DBManagement.modelo.Referendum;
+import es.uniovi.asw.DBManagement.modelo.ServerResponse;
+import es.uniovi.asw.DBManagement.modelo.Voter;
+import es.uniovi.asw.DBManagement.modelo.Voto;
+import es.uniovi.asw.DBManagement.repository.ColegioRepository;
+import es.uniovi.asw.DBManagement.repository.EleccionesRepository;
+import es.uniovi.asw.DBManagement.repository.VoterRepository;
+import es.uniovi.asw.DBManagement.repository.VotoRepository;
+import es.uniovi.asw.VoterAccess.VoterAcces;
 import groovy.lang.Grab;
 
 @Grab("thymeleaf-spring4")

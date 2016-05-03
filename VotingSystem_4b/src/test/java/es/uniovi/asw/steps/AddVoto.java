@@ -13,11 +13,11 @@ import org.springframework.web.context.WebApplicationContext;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Entonces;
 import es.uniovi.asw.Application;
-import es.uniovi.asw.dbupdate.ColegioRepository;
-import es.uniovi.asw.dbupdate.VotoRepository;
-import es.uniovi.asw.modelo.ColegioElectoral;
-import es.uniovi.asw.modelo.PartidoPolitico;
-import es.uniovi.asw.modelo.Voto;
+import es.uniovi.asw.DBManagement.modelo.ColegioElectoral;
+import es.uniovi.asw.DBManagement.modelo.PartidoPolitico;
+import es.uniovi.asw.DBManagement.modelo.Voto;
+import es.uniovi.asw.DBManagement.repository.ColegioRepository;
+import es.uniovi.asw.DBManagement.repository.VotoRepository;
 
 
 @ContextConfiguration(classes = Application.class, loader = SpringApplicationContextLoader.class)

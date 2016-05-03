@@ -13,8 +13,8 @@ import org.springframework.web.context.WebApplicationContext;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Entonces;
 import es.uniovi.asw.Application;
-import es.uniovi.asw.dbupdate.ColegioRepository;
-import es.uniovi.asw.modelo.ColegioElectoral;
+import es.uniovi.asw.DBManagement.modelo.ColegioElectoral;
+import es.uniovi.asw.DBManagement.repository.ColegioRepository;
 
 @ContextConfiguration(classes = Application.class, loader = SpringApplicationContextLoader.class)
 @IntegrationTest

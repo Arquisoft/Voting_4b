@@ -13,15 +13,16 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import es.uniovi.asw.dbupdate.ColegioRepository;
-import es.uniovi.asw.dbupdate.EleccionesRepository;
-import es.uniovi.asw.dbupdate.VoterRepository;
-import es.uniovi.asw.dbupdate.VotoRepository;
-import es.uniovi.asw.modelo.ColegioElectoral;
-import es.uniovi.asw.modelo.Elecciones;
-import es.uniovi.asw.modelo.PartidoPolitico;
-import es.uniovi.asw.modelo.Voter;
-import es.uniovi.asw.modelo.Voto;
+
+import es.uniovi.asw.DBManagement.modelo.ColegioElectoral;
+import es.uniovi.asw.DBManagement.modelo.Elecciones;
+import es.uniovi.asw.DBManagement.modelo.PartidoPolitico;
+import es.uniovi.asw.DBManagement.modelo.Voter;
+import es.uniovi.asw.DBManagement.modelo.Voto;
+import es.uniovi.asw.DBManagement.repository.ColegioRepository;
+import es.uniovi.asw.DBManagement.repository.EleccionesRepository;
+import es.uniovi.asw.DBManagement.repository.VoterRepository;
+import es.uniovi.asw.DBManagement.repository.VotoRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)

@@ -2,7 +2,7 @@ package es.uniovi.asw.Calculate.voters;
 
 import java.util.Map;
 
-import es.uniovi.asw.service.GetVotes;
+import es.uniovi.asw.Calculate.GetVotes;
 
 public interface VotersType {
 

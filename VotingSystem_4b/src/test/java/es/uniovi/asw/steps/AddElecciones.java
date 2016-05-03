@@ -18,8 +18,8 @@ import org.springframework.web.context.WebApplicationContext;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Entonces;
 import es.uniovi.asw.Application;
-import es.uniovi.asw.dbupdate.EleccionesRepository;
-import es.uniovi.asw.modelo.Elecciones;
+import es.uniovi.asw.DBManagement.modelo.Elecciones;
+import es.uniovi.asw.DBManagement.repository.EleccionesRepository;
 
 
 @ContextConfiguration(classes = Application.class, loader = SpringApplicationContextLoader.class)

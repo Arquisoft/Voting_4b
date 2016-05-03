@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.uniovi.asw.Calculate.voters.ReferendumOption;
-import es.uniovi.asw.modelo.Voto;
+import es.uniovi.asw.DBManagement.modelo.Voto;
 
 import org.junit.Before;
 import org.junit.Test;
