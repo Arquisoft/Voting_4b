@@ -83,23 +83,26 @@ public class Main {
 	}
 
 	@RequestMapping(value = "/votar")
-	public String votar(Voto voto, @ModelAttribute("opcion") String opcionVoto, Model model) {// TODO
-																								// CAMBIO
+	public String votar(Voto voto, @ModelAttribute("opcion") String opcionVoto,
+			Model model) {// TODO
+							// CAMBIO
 
 		List<Elecciones> elecciones = eleccionesRepository.findAll();
 		if (!elecciones.isEmpty()) {
 			Elecciones e = elecciones.get(0);
 			Date hoy = new Date();
 			if (e.getFechaInicio().after(hoy)) {
-				model.addAttribute("mensaje", "Por favor, espere a que se inicien las elecciones");
+				model.addAttribute("mensaje",
+						"Por favor, espere a que se inicien las elecciones");
 				return "esperarElecciones";
 			} else if (e.getFechaFin().before(hoy)) {
-				model.addAttribute("mensaje", "Las elecciones ya han finalizado, espere a unas nuevas elecciones");
+				model.addAttribute("mensaje",
+						"Las elecciones ya han finalizado, espere a unas nuevas elecciones");
 				return "esperarElecciones";
 			}
 		} else {
-			model.addAttribute("mensaje",
-					"Aún no se han añadido elecciones." + "Por favor, espere a unas nuevas elecciones.");
+			model.addAttribute("mensaje", "Aún no se han añadido elecciones."
+					+ "Por favor, espere a unas nuevas elecciones.");
 			return "esperarElecciones";
 		}
 
@@ -113,8 +116,10 @@ public class Main {
 	}
 
 	@RequestMapping(value = "/votar", method = RequestMethod.POST)
-	public String saveVote(Voto voto, @ModelAttribute("opcion") String opcionVoto, Model model, HttpSession session) {// TODO
-																														// CAMBIO
+	public String saveVote(Voto voto,
+			@ModelAttribute("opcion") String opcionVoto, Model model,
+			HttpSession session) {// TODO
+									// CAMBIO
 
 		List<Referendum> opciones = new ArrayList<Referendum>();
 		for (Referendum opcion : Referendum.values()) {
@@ -123,11 +128,14 @@ public class Main {
 		model.addAttribute("opciones", opciones);
 
 		if (session.getAttribute("usuario") != null) {
-			Voter voter = voterRepository.findByUsuario((String) session.getAttribute("usuario"));
+			Voter voter = voterRepository.findByUsuario((String) session
+					.getAttribute("usuario"));
 			if (voter != null) {
 				if (voter.isEjercioDerechoAlVoto()) {
-					LOG.info("El usuario " + voter.getUsuario() + " ya ha votado");
-					model.addAttribute("mensaje", "No puede votar, porque ya ha votado anteriormente");
+					LOG.info("El usuario " + voter.getUsuario()
+							+ " ya ha votado");
+					model.addAttribute("mensaje",
+							"No puede votar, porque ya ha votado anteriormente");
 					return "/votar";
 				}
 
@@ -136,16 +144,20 @@ public class Main {
 
 		if (opcionVoto == null) {
 			if (session.getAttribute("usuario") != null) {
-				Voter voter = voterRepository.findByUsuario((String) session.getAttribute("usuario"));
+				Voter voter = voterRepository.findByUsuario((String) session
+						.getAttribute("usuario"));
 				if (voter != null) {
-					voterAccess.updateEjercioDerechoAlVoto(true, voter.getNif());
-					ColegioElectoral colegio = colegioRepository.findByCodigoColegio(voter.getCodigoColegio());
+					voterAccess
+							.updateEjercioDerechoAlVoto(true, voter.getNif());
+					ColegioElectoral colegio = colegioRepository
+							.findByCodigoColegio(voter.getCodigoColegio());
 					Voto v = new Voto(colegio, null, false, false, true);
 					votoRepository.save(v);
 					LOG.info("Queda registrado de que el votante ha votado");
-					model.addAttribute("mensaje", "Ha votado correctamente: voto en blanco");
+					model.addAttribute("mensaje",
+							"Ha votado correctamente: voto en blanco");
 					LOG.info("Se ha añadido un nuevo voto en blanco");
-							
+
 				}
 			}
 
@@ -153,16 +165,21 @@ public class Main {
 		}
 		boolean encontrado = false;
 
-		if (opcionVoto.toLowerCase().equals(Referendum.SI.toString().toLowerCase()) 
-				|| opcionVoto.toLowerCase().equals(Referendum.NO.toString().toLowerCase())) {
-			
+		if (opcionVoto.toLowerCase().equals(
+				Referendum.SI.toString().toLowerCase())
+				|| opcionVoto.toLowerCase().equals(
+						Referendum.NO.toString().toLowerCase())) {
+
 			if (session.getAttribute("usuario") != null) {
-				Voter voter = voterRepository.findByUsuario((String) session.getAttribute("usuario"));
+				Voter voter = voterRepository.findByUsuario((String) session
+						.getAttribute("usuario"));
 				if (voter != null) {
-					ColegioElectoral colegio = colegioRepository.findByCodigoColegio(voter.getCodigoColegio());
+					ColegioElectoral colegio = colegioRepository
+							.findByCodigoColegio(voter.getCodigoColegio());
 					Voto v = new Voto(colegio, opcionVoto, false, false, false);
 					votoRepository.save(v);
-					voterAccess.updateEjercioDerechoAlVoto(true, voter.getUsuario());
+					voterAccess.updateEjercioDerechoAlVoto(true,
+							voter.getUsuario());
 					model.addAttribute("mensaje", "Ha votado correctamente");
 					LOG.info("Queda registrado de que el votante ha votado");
 					LOG.info("Se ha añadido un nuevo voto");
@@ -172,31 +189,39 @@ public class Main {
 
 			return "/votar";
 		}
-		if (opcionVoto.equals("")){
+		if (opcionVoto.equals("")) {
 			if (session.getAttribute("usuario") != null) {
-				Voter voter = voterRepository.findByUsuario((String) session.getAttribute("usuario"));
+				Voter voter = voterRepository.findByUsuario((String) session
+						.getAttribute("usuario"));
 				if (voter != null) {
-					ColegioElectoral colegio = colegioRepository.findByCodigoColegio(voter.getCodigoColegio());
+					ColegioElectoral colegio = colegioRepository
+							.findByCodigoColegio(voter.getCodigoColegio());
 					Voto v = new Voto(colegio, null, false, false, true);
 					votoRepository.save(v);
-					voterAccess.updateEjercioDerechoAlVoto(true, voter.getUsuario());
-					model.addAttribute("mensaje", "Ha votado correctamente: voto en blanco");
+					voterAccess.updateEjercioDerechoAlVoto(true,
+							voter.getUsuario());
+					model.addAttribute("mensaje",
+							"Ha votado correctamente: voto en blanco");
 					LOG.info("Se ha añadido un nuevo voto en blanco");
 					LOG.info("Queda registrado de que el votante ha votado");
 				}
 			}
 			return "/votar";
 
-		} else{
+		} else {
 			if (encontrado == false) {
 				Voto v = new Voto(null, null, false, true, false);
 				votoRepository.save(v);
-				model.addAttribute("mensaje", "Ha votado correctamente: voto nulo");
+				model.addAttribute("mensaje",
+						"Ha votado correctamente: voto nulo");
 				LOG.info("Se ha añadido un nuevo voto nulo");
 				if (session.getAttribute("usuario") != null) {
-					Voter voter = voterRepository.findByUsuario((String) session.getAttribute("usuario"));
+					Voter voter = voterRepository
+							.findByUsuario((String) session
+									.getAttribute("usuario"));
 					if (voter != null) {
-						voterAccess.updateEjercioDerechoAlVoto(true, voter.getUsuario());
+						voterAccess.updateEjercioDerechoAlVoto(true,
+								voter.getUsuario());
 						LOG.info(voter.toString());
 					}
 				}
@@ -217,35 +242,38 @@ public class Main {
 	public String addElecciones(Elecciones elecciones, Model model) {
 		LOG.info("Modificar elecciones page access");
 		try {
-			if (elecciones.getNombre() != null 
-					&& elecciones.getFechaInicio() instanceof Date && elecciones.getFechaFin() instanceof Date
-					&& elecciones.getFechaFin().after(elecciones.getFechaInicio())) {
+			if (elecciones.getNombre() != null
+					&& elecciones.getFechaInicio() instanceof Date
+					&& elecciones.getFechaFin() instanceof Date
+					&& elecciones.getFechaFin().after(
+							elecciones.getFechaInicio())) {
 
-				List<Elecciones> listaElecciones = eleccionesRepository.findAll();
-				if (listaElecciones != null && !listaElecciones.isEmpty()) {
-					for (Elecciones e : listaElecciones) {
-						if (!e.getNombre().equals(elecciones.getNombre())) {
-							Elecciones eleccion = new Elecciones(elecciones.getNombre(), elecciones.getFechaInicio(),
-									elecciones.getFechaFin());
-							eleccionesRepository.save(eleccion);
-							model.addAttribute("mensaje",
-									"Se han convocado las nuevas elecciones con nombre: " + elecciones.getNombre());
-							LOG.info("Se han convocado las nuevas elecciones con nombre: " + elecciones.getNombre());
-							return "/modificar_elecciones";
-						}
-					}
-				} else {
-					Elecciones eleccion = new Elecciones(elecciones.getNombre(), elecciones.getFechaInicio(),
+				List<Elecciones> listaElecciones = eleccionesRepository
+						.findAll();
+				if (listaElecciones == null || listaElecciones.isEmpty()) {
+
+					Elecciones eleccion = new Elecciones(
+							elecciones.getNombre(),
+							elecciones.getFechaInicio(),
 							elecciones.getFechaFin());
 					eleccionesRepository.save(eleccion);
 					model.addAttribute("mensaje",
-							"Se han convocado las nuevas elecciones con nombre: " + elecciones.getNombre());
-					LOG.info("Se han convocado las nuevas elecciones con nombre: " + elecciones.getNombre());
+							"Se han convocado las nuevas elecciones con nombre: "
+									+ elecciones.getNombre());
+					LOG.info("Se han convocado las nuevas elecciones con nombre: "
+							+ elecciones.getNombre());
+					return "/modificar_elecciones";
+
+				} else {
+					model.addAttribute("mensaje",
+							"No se puede convocar más de una elección");
+					LOG.info("No se han convocado nuevas elecciones, porque ya existe una");
 					return "/modificar_elecciones";
 				}
 			} else {
 
-				model.addAttribute("mensaje", "Por favor, rellene todos los campos");
+				model.addAttribute("mensaje",
+						"Por favor, rellene todos los campos");
 				LOG.info("No se han podido convocar nuevas elecciones");
 				return "/modificar_elecciones";
 
@@ -255,7 +283,6 @@ public class Main {
 			LOG.info("No se han podido convocar nuevas elecciones");
 			return "/modificar_elecciones";
 		}
-		return "/modificar_elecciones";
 	}
 
 	@RequestMapping(value = "/add_colegio")
@@ -267,7 +294,8 @@ public class Main {
 	@RequestMapping(value = "/add_colegio", method = RequestMethod.POST)
 	public String addColegio(ColegioElectoral colegioElectoral, Model model) {
 
-		if (colegioElectoral.getCircunscripcion() == null || colegioElectoral.getComunidadAutonoma() == null) {
+		if (colegioElectoral.getCircunscripcion() == null
+				|| colegioElectoral.getComunidadAutonoma() == null) {
 			model.addAttribute("mensaje", "Por favor, rellene todos los campos");
 			LOG.info("No se ha añadido ningún colegio electoral");
 			return "/add_colegio";
@@ -275,25 +303,33 @@ public class Main {
 
 			List<ColegioElectoral> colegios = colegioRepository.findAll();
 			if (colegios.isEmpty()) {
-				ColegioElectoral c = new ColegioElectoral(colegioElectoral.getCodigoColegio(),
-						colegioElectoral.getCircunscripcion(), colegioElectoral.getComunidadAutonoma());
+				ColegioElectoral c = new ColegioElectoral(
+						colegioElectoral.getCodigoColegio(),
+						colegioElectoral.getCircunscripcion(),
+						colegioElectoral.getComunidadAutonoma());
 				colegioRepository.save(c);
 				model.addAttribute("mensaje",
-						"Se ha añadido el nuevo colegio electoral con código: " + c.getCodigoColegio());
+						"Se ha añadido el nuevo colegio electoral con código: "
+								+ c.getCodigoColegio());
 				LOG.info("Se ha añadido un nuevo colegio electoral");
 			} else {
 				for (ColegioElectoral colegioElectoral2 : colegios) {
-					if (colegioElectoral.getCodigoColegio() != colegioElectoral2.getCodigoColegio()) {
-						ColegioElectoral c = new ColegioElectoral(colegioElectoral.getCodigoColegio(),
-								colegioElectoral.getCircunscripcion(), colegioElectoral.getComunidadAutonoma());
+					if (colegioElectoral.getCodigoColegio() != colegioElectoral2
+							.getCodigoColegio()) {
+						ColegioElectoral c = new ColegioElectoral(
+								colegioElectoral.getCodigoColegio(),
+								colegioElectoral.getCircunscripcion(),
+								colegioElectoral.getComunidadAutonoma());
 						colegioRepository.save(c);
 						model.addAttribute("mensaje",
-								"Se ha añadido el nuevo colegio electoral con código: " + c.getCodigoColegio());
+								"Se ha añadido el nuevo colegio electoral con código: "
+										+ c.getCodigoColegio());
 						LOG.info("Se ha añadido un nuevo colegio electoral");
 						return "/add_colegio";
 
 					} else {
-						model.addAttribute("mensaje", "No se ha podido añadir el colegio electoral");
+						model.addAttribute("mensaje",
+								"No se ha podido añadir el colegio electoral");
 						LOG.info("Error, no se ha podido añadir el colegio electoral");
 						return "/add_colegio";
 
@@ -303,7 +339,6 @@ public class Main {
 			return "/add_colegio";
 		}
 	}
-
 
 	@RequestMapping("/WelcomePage")
 	public String voterInicioSesion(Model model) {
@@ -318,26 +353,31 @@ public class Main {
 
 		this.userInfo = userInfo;
 
-		this.serverResponse = this.voterAccess.getVoter(userInfo.getEmail(), userInfo.getClave());
+		this.serverResponse = this.voterAccess.getVoter(userInfo.getEmail(),
+				userInfo.getClave());
 
 		return serverResponse;
 	}
 
 	@RequestMapping(value = "/showUserInfo", method = RequestMethod.POST)
-	public String getVR(Gizmo gizmo, Model model, Elecciones elecciones, HttpSession session) {
+	public String getVR(Gizmo gizmo, Model model, Elecciones elecciones,
+			HttpSession session) {
 		LOG.info("Show User info in page access");
 
 		try {
-			ServerResponse response = this.voterAccess.getVoter(gizmo.getField1(), gizmo.getField2());
+			ServerResponse response = this.voterAccess.getVoter(
+					gizmo.getField1(), gizmo.getField2());
 			this.serverResponse = response;
 			userInfo = new UserInfo(gizmo.getField1(), gizmo.getField2());
 		} catch (ResourceNotFoundException e) {
-			model.addAttribute("mensaje", "Por favor, introduzca un email y password correctos");
+			model.addAttribute("mensaje",
+					"Por favor, introduzca un email y password correctos");
 			LOG.info("No se ha podido iniciar sesión porque no es correcto el usuario");
 			return "WelcomePage";
 		}
 
-		Voter usuarioConectado = voterRepository.findByEmailAndClave(userInfo.getEmail(), userInfo.getClave());
+		Voter usuarioConectado = voterRepository.findByEmailAndClave(
+				userInfo.getEmail(), userInfo.getClave());
 
 		if (usuarioConectado != null) {
 			session.setAttribute("usuario", usuarioConectado.getUsuario());
@@ -360,13 +400,15 @@ public class Main {
 	}
 
 	@RequestMapping("/voterpage")
-	public String voterPage(Gizmo gizmo, Model model, Elecciones elecciones, HttpSession session) {
+	public String voterPage(Gizmo gizmo, Model model, Elecciones elecciones,
+			HttpSession session) {
 		LOG.info("Voter page in page access");
 		return "voterpage";
 	}
 
 	@RequestMapping("/InfoPage")
-	public String voterInfo(Gizmo gizmo, Model model, Elecciones elecciones, HttpSession session) {
+	public String voterInfo(Gizmo gizmo, Model model, Elecciones elecciones,
+			HttpSession session) {
 		LOG.info("Voter info in page access");
 
 		return "InfoPage";
@@ -379,14 +421,7 @@ public class Main {
 		return "index";
 
 	}
-	
-	
-//	@RequestMapping("/elecciones_tipo")
-//	public String addEleccionesTipo(Model model, Elecciones elecciones) {
-//		LOG.info("Acceso a página seleccionar tipo de elecciones");
-//		return "elecciones_tipo";
-//	}
-	
+
 	@RequestMapping("/esperar_tipos")
 	public String esperarTipos(Model model) {
 		LOG.info("Acceso a página esperar que se creen nuevos tipos de elecciones");
@@ -402,7 +437,8 @@ public class Main {
 	@RequestMapping(value = "/changingPassword", method = RequestMethod.POST)
 	public String changingPassword(Gizmo gizmo, Model model) {
 
-		this.voterAccess.updatePassword(userInfo.getEmail(), userInfo.getClave(), gizmo.getField1());
+		this.voterAccess.updatePassword(userInfo.getEmail(),
+				userInfo.getClave(), gizmo.getField1());
 
 		ArrayList<Object> atributos = new ArrayList<>();
 		atributos.add(serverResponse);
@@ -420,20 +456,22 @@ public class Main {
 			Elecciones e = elecciones.get(0);
 			Date hoy = new Date();
 			if (!e.getFechaFin().before(hoy)) {
-				model.addAttribute("mensaje",
+				model.addAttribute(
+						"mensaje",
 						"Por favor, espere para ver los resultados, las elecciones aún no han finalizado");
 				return "esperarElecciones";
 			}
 		} else {
-			model.addAttribute("mensaje",
-					"Aún no se han añadido elecciones." + "Por favor, espere a unas nuevas elecciones.");
+			model.addAttribute("mensaje", "Aún no se han añadido elecciones."
+					+ "Por favor, espere a unas nuevas elecciones.");
 			return "esperarElecciones";
 		}
 
 		if (primerAccesoWeb) {
 			primerAccesoWeb = false;
 			cargarPrimerosDatosVotos();
-			calculate = new Calculate(new DBVotes(votoRepository), new VotersTypeImpl());
+			calculate = new Calculate(new DBVotes(votoRepository),
+					new VotersTypeImpl());
 			numeroVotosContabilizados = calculate.getType().getTipo().nVoto();
 		}
 
@@ -445,12 +483,15 @@ public class Main {
 	}
 
 	private void preparaModelo(Model model) {
-		model.addAttribute("nombreElecciones", eleccionesRepository.findAll().get(0).getNombre());
+		model.addAttribute("nombreElecciones", eleccionesRepository.findAll()
+				.get(0).getNombre());
 		model.addAttribute("resultadosString", mensajeResultado);
 		model.addAttribute("resultados", resultados);
-		model.addAttribute("ultimaActualizacion", "Ultima actualizacion: " + fechaRefresco);
+		model.addAttribute("ultimaActualizacion", "Ultima actualizacion: "
+				+ fechaRefresco);
 		model.addAttribute("votosContabilizados",
-				"Votos contabilizados hasta el momento: " + numeroVotosContabilizados);
+				"Votos contabilizados hasta el momento: "
+						+ numeroVotosContabilizados);
 
 		boolean refrescar = true;
 
@@ -465,11 +506,16 @@ public class Main {
 			double no = ((double) resultados[1] / (double) numeroVotosContabilizados) * 100;
 			double blanco = ((double) resultados[2] / (double) numeroVotosContabilizados) * 100;
 			double nulo = ((double) resultados[3] / (double) numeroVotosContabilizados) * 100;
-			model.addAttribute("porcentajes", "Si: " + Math.round(si) + "% - No: " + Math.round(no) + "% - En blanco: "
-					+ Math.round(blanco) + "% - Nulo: " + Math.round(nulo) + "%");
-			model.addAttribute("nombreElecciones", eleccionesRepository.findAll().get(0).getNombre() + " - Elecciones Finalizadas");
+			model.addAttribute("porcentajes",
+					"Si: " + Math.round(si) + "% - No: " + Math.round(no)
+							+ "% - En blanco: " + Math.round(blanco)
+							+ "% - Nulo: " + Math.round(nulo) + "%");
+			model.addAttribute("nombreElecciones", eleccionesRepository
+					.findAll().get(0).getNombre()
+					+ " - Elecciones Finalizadas");
 			model.addAttribute("votosContabilizados",
-					"Total de votos contabilizados: " + numeroVotosContabilizados);
+					"Total de votos contabilizados: "
+							+ numeroVotosContabilizados);
 		}
 
 		model.addAttribute("refrescar", refrescar);
@@ -505,7 +551,8 @@ public class Main {
 			// hasta el momento
 			if (calculate.getType().getTipo().nVoto() < votoRepository.count()) {
 				calculate.recalcularYActualizarObjetosWeb();
-				numeroVotosContabilizados = calculate.getType().getTipo().nVoto();
+				numeroVotosContabilizados = calculate.getType().getTipo()
+						.nVoto();
 				preparaModelo(model);
 			}
 		}
@@ -516,18 +563,24 @@ public class Main {
 				int random = (int) (Math.random() * 4);
 				switch (random) {
 				case 0:
-					votoRepository.save(new Voto(null, "Si", false, false, false));
-					votoRepository.save(new Voto(null, "Si", false, false, false));
-					votoRepository.save(new Voto(null, "si", false, false, false));
+					votoRepository.save(new Voto(null, "Si", false, false,
+							false));
+					votoRepository.save(new Voto(null, "Si", false, false,
+							false));
+					votoRepository.save(new Voto(null, "si", false, false,
+							false));
 					break;
 				case 1:
-					votoRepository.save(new Voto(null, "No", false, true, false));
+					votoRepository
+							.save(new Voto(null, "No", false, true, false));
 					break;
 				case 2:
-					votoRepository.save(new Voto(null, null, false, false, true));
+					votoRepository
+							.save(new Voto(null, null, false, false, true));
 					break;
 				case 3:
-					votoRepository.save(new Voto(null, null, false, true, false));
+					votoRepository
+							.save(new Voto(null, null, false, true, false));
 					break;
 
 				}
@@ -537,9 +590,12 @@ public class Main {
 
 	private void cargarPrimerosDatosVotos() {
 		// VOTOS DE PRUEBA QUE TIENEN QUE ESTAR DEL CONTEO DIGITAL
-		Voto votoSi = new Voto(null, Referendum.SI.toString(), false, false, false);
-		Voto votoSi2 = new Voto(null, Referendum.SI.toString(), false, false, false);
-		Voto votoNo = new Voto(null, Referendum.NO.toString(), false, false, false);
+		Voto votoSi = new Voto(null, Referendum.SI.toString(), false, false,
+				false);
+		Voto votoSi2 = new Voto(null, Referendum.SI.toString(), false, false,
+				false);
+		Voto votoNo = new Voto(null, Referendum.NO.toString(), false, false,
+				false);
 		Voto votoNulo = new Voto(null, null, false, true, false);
 
 		Voto votoBlanco1 = new Voto(null, null, false, false, true);
