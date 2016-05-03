@@ -66,7 +66,7 @@ public class BDTest {
 		fechaInicio = formato.parse(fecha1);
 		fechaFin = formato.parse(fecha2);
 		
-		eleccionesElectorales = new Elecciones("Referendum", fechaInicio, fechaFin, "Opciones");
+		eleccionesElectorales = new Elecciones("Referendum", fechaInicio, fechaFin);
 		er.save(eleccionesElectorales);
 		
 		
@@ -101,12 +101,11 @@ public class BDTest {
 		fechaInicio2 = formato.parse(fecha11);
 		fechaFin2 = formato.parse(fecha22);
 		
-		Elecciones e = new Elecciones("Referendum", fechaInicio, fechaFin, "Opciones");
+		Elecciones e = new Elecciones("Referendum", fechaInicio, fechaFin);
 		
 		e.setFechaInicio(fechaInicio2);
 		e.setFechaFin(fechaFin2);
 		e.setNombre("Otras elecciones");
-		e.setOpciones("Ninguna");
 		
 		assertEquals("Otras elecciones", e.getNombre());
 	}

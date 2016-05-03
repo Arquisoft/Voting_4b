@@ -40,8 +40,8 @@ public class AddElecciones {
 	EleccionesRepository er = null;
 	Elecciones elecciones = null;
 	
-	@Cuando("^agregamos unas elecciones con nombre \"([^\"]*)\", con opciones de voto \"([^\"]*)\", fecha inicio \"([^\"]*)\" y fecha final \"([^\"]*)\"$")
-	public void agregamos_unas_elecciones_con_nombre_con_opciones_de_voto_fecha_inicio_y_fecha_final(String arg1, String arg2, String arg3, String arg4) throws Throwable {
+	@Cuando("^agregamos unas elecciones con nombre \"([^\"]*)\", fecha inicio \"([^\"]*)\" y fecha final \"([^\"]*)\"$")
+	public void agregamos_unas_elecciones_con_nombre_fecha_inicio_y_fecha_final(String arg1, String arg3, String arg4) throws Throwable {
 		
 		Date fechaInicio=null;
 		Date fechaFin = null;
@@ -49,7 +49,7 @@ public class AddElecciones {
 		fechaInicio = formato.parse(arg3);
 		fechaFin = formato.parse(arg4);
 
-		elecciones = new Elecciones(arg1, fechaInicio, fechaFin, arg2);
+		elecciones = new Elecciones(arg1, fechaInicio, fechaFin);
 		er.save(elecciones);
 	}
 	
