@@ -135,15 +135,17 @@ public class Main {
 		}
 
 		if (opcionVoto == null) {
-			Voto v = new Voto(null, null, false, false, true);
-			votoRepository.save(v);
-			model.addAttribute("mensaje", "Ha votado correctamente: voto en blanco");
-			LOG.info("Se ha añadido un nuevo voto en blanco");
 			if (session.getAttribute("usuario") != null) {
 				Voter voter = voterRepository.findByUsuario((String) session.getAttribute("usuario"));
 				if (voter != null) {
 					voterAccess.updateEjercioDerechoAlVoto(true, voter.getNif());
-					LOG.info(voter.toString());
+					ColegioElectoral colegio = colegioRepository.findByCodigoColegio(voter.getCodigoColegio());
+					Voto v = new Voto(colegio, null, false, false, true);
+					votoRepository.save(v);
+					LOG.info("Queda registrado de que el votante ha votado");
+					model.addAttribute("mensaje", "Ha votado correctamente: voto en blanco");
+					LOG.info("Se ha añadido un nuevo voto en blanco");
+							
 				}
 			}
 
@@ -152,40 +154,39 @@ public class Main {
 		boolean encontrado = false;
 
 		if (opcionVoto.equals(Referendum.SI.toString()) || opcionVoto.equals(Referendum.NO.toString())) {
-			Voto v = new Voto(null, opcionVoto, false, false, false);
-			votoRepository.save(v);
-			model.addAttribute("mensaje", "Ha votado correctamente");
-			LOG.info("Se ha añadido un nuevo voto");
+			
 			if (session.getAttribute("usuario") != null) {
 				Voter voter = voterRepository.findByUsuario((String) session.getAttribute("usuario"));
 				if (voter != null) {
+					ColegioElectoral colegio = colegioRepository.findByCodigoColegio(voter.getCodigoColegio());
+					Voto v = new Voto(colegio, opcionVoto, false, false, false);
+					votoRepository.save(v);
 					voterAccess.updateEjercioDerechoAlVoto(true, voter.getUsuario());
-					LOG.info(voter.toString());
+					model.addAttribute("mensaje", "Ha votado correctamente");
+					LOG.info("Queda registrado de que el votante ha votado");
+					LOG.info("Se ha añadido un nuevo voto");
 				}
 			}
 			encontrado = true;
 
 			return "/votar";
 		}
-		if (opcionVoto.equals(""))
-
-		{
-			Voto v = new Voto(null, null, false, false, true);
-			votoRepository.save(v);
-			model.addAttribute("mensaje", "Ha votado correctamente: voto en blanco");
-			LOG.info("Se ha añadido un nuevo voto en blanco");
+		if (opcionVoto.equals("")){
 			if (session.getAttribute("usuario") != null) {
 				Voter voter = voterRepository.findByUsuario((String) session.getAttribute("usuario"));
 				if (voter != null) {
+					ColegioElectoral colegio = colegioRepository.findByCodigoColegio(voter.getCodigoColegio());
+					Voto v = new Voto(colegio, null, false, false, true);
+					votoRepository.save(v);
 					voterAccess.updateEjercioDerechoAlVoto(true, voter.getUsuario());
-					LOG.info(voter.toString());
+					model.addAttribute("mensaje", "Ha votado correctamente: voto en blanco");
+					LOG.info("Se ha añadido un nuevo voto en blanco");
+					LOG.info("Queda registrado de que el votante ha votado");
 				}
 			}
 			return "/votar";
 
-		} else
-
-		{
+		} else{
 			if (encontrado == false) {
 				Voto v = new Voto(null, null, false, true, false);
 				votoRepository.save(v);
