@@ -210,19 +210,22 @@ public class Main {
 
 		} else {
 			if (encontrado == false) {
-				Voto v = new Voto(null, null, false, true, false);
-				votoRepository.save(v);
-				model.addAttribute("mensaje",
-						"Ha votado correctamente: voto nulo");
-				LOG.info("Se ha añadido un nuevo voto nulo");
 				if (session.getAttribute("usuario") != null) {
 					Voter voter = voterRepository
 							.findByUsuario((String) session
 									.getAttribute("usuario"));
 					if (voter != null) {
+						
+						ColegioElectoral colegio = colegioRepository
+								.findByCodigoColegio(voter.getCodigoColegio());
+						Voto v = new Voto(colegio, null, false, true, false);
+						votoRepository.save(v);
 						voterAccess.updateEjercioDerechoAlVoto(true,
 								voter.getUsuario());
-						LOG.info(voter.toString());
+						LOG.info("Se ha añadido un nuevo voto nulo");
+						model.addAttribute("mensaje",
+								"Ha votado correctamente: voto nulo");
+						LOG.info("Queda registrado de que el votante ha votado");
 					}
 				}
 				return "/votar";
@@ -257,6 +260,7 @@ public class Main {
 							elecciones.getFechaInicio(),
 							elecciones.getFechaFin());
 					eleccionesRepository.save(eleccion);
+					insertColegios();
 					model.addAttribute("mensaje",
 							"Se han convocado las nuevas elecciones con nombre: "
 									+ elecciones.getNombre());
@@ -283,6 +287,38 @@ public class Main {
 			LOG.info("No se han podido convocar nuevas elecciones");
 			return "/modificar_elecciones";
 		}
+	}
+
+	/**
+	 * Método que añade los colegios electorales iniciales
+	 */
+	private void insertColegios() {
+
+		for (Voter voter : voterRepository.findAll()) {
+			if(existeColegio(voter.getCodigoColegio())==false){
+				ColegioElectoral c = new ColegioElectoral(
+						voter.getCodigoColegio(),"","");
+				colegioRepository.save(c);
+			}
+		}
+		
+	}
+	
+
+	/**
+	 * Método que comprueba si ya existe un colegio con el mismo codigo
+	 * @return
+	 */
+	private boolean existeColegio(int cod) {
+		List<ColegioElectoral> colegios = colegioRepository.findAll();
+		if(colegios!=null && !colegios.isEmpty()){
+			for (ColegioElectoral colegio : colegios) {
+				if(colegio.getCodigoColegio()==cod){
+					return true;
+				}
+			}
+		}	
+		return false;
 	}
 
 	@RequestMapping(value = "/add_colegio")

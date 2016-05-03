@@ -63,19 +63,23 @@ public class Application {
 				}
 				
 				Voter pamela = new Voter("Pamela", "pamela@gmail.com",
-						"1111111A", 01, "pamela", "patata", false);
+						"1111111A", 10000, "pamela", "patata", false);
 				Voter juntaElectoral = new Voter("Junta Electoral",
-						"junta@gmail.com", "22222A", 01, "junta", "junta",
+						"junta@gmail.com", "22222A", 10000, "junta", "junta",
 						false);
 				
 				Voter dario = new Voter("Dario", "dario@gmail.com",
-						"1111111A", 01, "dario", "patata", false);
+						"1111111A", 10000, "dario", "patata", false);
+				
+				Voter monica = new Voter("Monica", "monica@gmail.com",
+						"1111111A", 10000, "monica", "patata", false);
 				
 				//Elecciones elecciones = new Elecciones("Eleccioes", new Date(2015, 01, 01), new Date(2018, 01, 01), "Si, No");
 				
 				repository.save(pamela);
 				repository.save(juntaElectoral);
 				repository.save(dario);
+				repository.save(monica);
 				
 			}
 		};

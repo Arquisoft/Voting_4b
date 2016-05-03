@@ -8,7 +8,7 @@ public class PO_voto {
 	
 	public void rellenaFormulario(WebDriver driver, String voto)
     {
- 		WebElement votoWeb = driver.findElement(By.id("partidoPolitico"));
+ 		WebElement votoWeb = driver.findElement(By.id("opcion"));
  		votoWeb.click();
  		votoWeb.clear();
  		votoWeb.sendKeys(voto);

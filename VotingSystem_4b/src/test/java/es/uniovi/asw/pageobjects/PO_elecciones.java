@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 public class PO_elecciones {
 
 	
-	public void rellenaFormulario(WebDriver driver, String nombre, String fechaInicio, String fechaFin, String opciones)
+	public void rellenaFormulario(WebDriver driver, String nombre, String fechaInicio, String fechaFin)
     {
  		WebElement nombreWeb = driver.findElement(By.id("nombre"));
  		nombreWeb.click();
@@ -22,13 +22,7 @@ public class PO_elecciones {
  		WebElement fechaFinWeb = driver.findElement(By.id("fecha_final"));
  		fechaFinWeb.click();
  		fechaFinWeb.clear();
- 		fechaFinWeb.sendKeys(fechaFin);
- 		
- 		WebElement opcionesWeb = driver.findElement(By.id("opciones"));
- 		opcionesWeb.click();
- 		opcionesWeb.clear();
- 		opcionesWeb.sendKeys(opciones);
- 		
+ 		fechaFinWeb.sendKeys(fechaFin); 		
  		
 
  		//Pulsar el boton de Modificar.
