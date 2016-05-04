@@ -1798,3 +1798,24 @@ Wed May 04 18:37:14 CEST 2016 INFO La carta en formato PDF para este usuario ya 
 Wed May 04 18:37:14 CEST 2016 INFO La carta en formato TXT para este usuario ya existe
 Wed May 04 18:37:14 CEST 2016 INFO La carta en formato PDF para este usuario ya existe
 Wed May 04 18:37:14 CEST 2016 INFO La carta en formato TXT para este usuario ya existe
+Wed May 04 20:39:39 CEST 2016 ERROR Se ha producido un error debido a que hay varios usuarios con un mismo email: dario@gmail.com
+Wed May 04 20:39:39 CEST 2016 ERROR Esto es un mensaje de error
+Wed May 04 20:41:09 CEST 2016 ERROR Se ha producido un error debido a que hay varios usuarios con un mismo email: dario@gmail.com
+Wed May 04 20:41:09 CEST 2016 ERROR Esto es un mensaje de error
+Wed May 04 20:43:06 CEST 2016 ERROR Se ha producido un error debido a que hay varios usuarios con un mismo email: dario@gmail.com
+Wed May 04 20:43:06 CEST 2016 ERROR Esto es un mensaje de error
+Wed May 04 20:44:24 CEST 2016 ERROR Se ha producido un error debido a que hay varios usuarios con un mismo email: dario@gmail.com
+Wed May 04 20:44:24 CEST 2016 ERROR Esto es un mensaje de error
+Wed May 04 20:47:08 CEST 2016 ERROR Se ha producido un error debido a que hay varios usuarios con un mismo email: dario@gmail.com
+Wed May 04 20:47:08 CEST 2016 ERROR Esto es un mensaje de error
+Wed May 04 20:47:36 CEST 2016 ERROR Se ha producido un error debido a que hay varios usuarios con un mismo email: dario@gmail.com
+Wed May 04 20:47:36 CEST 2016 ERROR Esto es un mensaje de error
+Wed May 04 20:49:44 CEST 2016 ERROR Se ha producido un error debido a que hay varios usuarios con un mismo email: dario@gmail.com
+Wed May 04 20:49:53 CEST 2016 ERROR Se ha producido un error debido a que hay varios usuarios con un mismo email: dario@gmail.com
+Wed May 04 20:49:55 CEST 2016 ERROR Se ha producido un error debido a que hay varios usuarios con un mismo email: dario@gmail.com
+Wed May 04 20:53:20 CEST 2016 ERROR Se ha producido un error debido a que hay varios usuarios con un mismo email: dario@gmail.com
+Wed May 04 20:53:36 CEST 2016 ERROR Se ha producido un error debido a que hay varios usuarios con un mismo email: dario@gmail.com
+Wed May 04 20:53:53 CEST 2016 ERROR Se ha producido un error debido a que hay varios usuarios con un mismo email: dario@gmail.com
+Wed May 04 20:53:53 CEST 2016 ERROR Esto es un mensaje de error
+Wed May 04 20:54:41 CEST 2016 ERROR Se ha producido un error debido a que hay varios usuarios con un mismo email: dario@gmail.com
+Wed May 04 20:54:41 CEST 2016 ERROR Esto es un mensaje de error
