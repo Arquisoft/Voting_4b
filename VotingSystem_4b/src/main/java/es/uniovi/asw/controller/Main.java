@@ -439,7 +439,7 @@ public class Main {
 				}
 			}else{
 				model.addAttribute("mensaje",
-						"Aún no hay elecciones");
+						"Aún no han finalizado las elecciones");
 				return "elecciones_tipo";
 			}
 		}else{

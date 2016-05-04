@@ -3,7 +3,13 @@
 <head th:replace="fragments/header :: head">
 </head>
 <body>
-<h1>Voter Info</h1>
+	<form id="cerrar-form" role="form" th:action="@{/cerrarSesion}"
+		method="post">
+		<button class="boton_cerrar" type="submit" id="cerrar"
+			title="Cerrar sesión">&#10005;</button>
+	</form>
+	<h1>Voter Info</h1>
+
 	<div align="center">
 		<table class="tabla_info_page">
 			<thead>
@@ -27,7 +33,8 @@
 		<form id="gizmo-form" role="form" th:action="@{/changePassword}"
 			method="post" th:object="${gizmo}">
 			<div id="buttonDIV">
-				<button class="boton_change" type="submit" id="button">CHANGE PASSWORD</button>
+				<button class="boton_change" type="submit" id="button">CHANGE
+					PASSWORD</button>
 			</div>
 		</form>
 	</div>
