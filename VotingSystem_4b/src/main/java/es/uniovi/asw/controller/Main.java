@@ -63,6 +63,7 @@ public class Main {
 	private ServerResponse serverResponse;
 
 	// Guarda un array con los resultados de las votaciones para mostrar
+	public static boolean finVotos=false;
 	public static int[] resultados;
 	public static String mensajeResultado;
 	public static String fechaRefresco;
@@ -412,6 +413,37 @@ public class Main {
 		return "index";
 
 	}
+	
+	@RequestMapping(value = "/finVotos", method = RequestMethod.POST)
+	public String finRecuento(Model model, HttpSession session) {
+		LOG.info("Acceso a fin de votos");
+		List<Elecciones> elecciones = election.listAll();
+		if (!elecciones.isEmpty()) {
+			Elecciones e = elecciones.get(0);
+			Date hoy = new Date();
+			if (e.getFechaFin().before(hoy)) {
+				if(finVotos==false){
+					finVotos=true;
+					model.addAttribute("mensaje",
+							"Se ha finalizado la llegada de votos");
+					return "elecciones_tipo";
+				}else{
+					model.addAttribute("mensaje",
+							"Ya se ha finalizado la llegada de votos anteriormente");
+					return "elecciones_tipo";
+				}
+			}else{
+				model.addAttribute("mensaje",
+						"Aún no hay elecciones");
+				return "elecciones_tipo";
+			}
+		}else{
+			model.addAttribute("mensaje",
+					"Aún no hay elecciones");
+			return "elecciones_tipo";
+		}
+
+	}
 
 	@RequestMapping("/esperar_tipos")
 	public String esperarTipos(Model model) {
@@ -485,7 +517,7 @@ public class Main {
 		// artificl porque sino se sabriamos cuando para de meter datos
 		// simulados de los
 		// puntos de voto fisicos
-		if (numeroVotosContabilizados >= MAX_VOTOS_PERMITIDOS) {
+		if (finVotos) {
 			refrescar = false;
 			double si = ((double) resultados[0] / (double) numeroVotosContabilizados) * 100;
 			double no = ((double) resultados[1] / (double) numeroVotosContabilizados) * 100;
@@ -516,7 +548,7 @@ public class Main {
 			// artificl porque sino se sabriamos cuando para de meter datos
 			// simulados de los
 			// puntos de voto fisicos
-			if (calculate.getType().getTipo().nVoto() >= MAX_VOTOS_PERMITIDOS) {
+			if (finVotos) {
 				cancel();
 				return;
 			}

@@ -23,7 +23,15 @@
 				
 			<a href="esperar_tipos.html" class="boton_add_otras_elecciones"> OTRAS ELECCIONES</a> 
 
-
+			<br></br> <br></br> <br></br>
+			<form id="fin-votos-form" role="form" th:action="@{/finVotos}"
+				method="post">
+				<button class="boton_fin_votos" type="submit" id="fin_votos">LLEGADA DE VOTOS TERMINADA</button>
+			</form>
+	</div>
+	
+	<div  th:if="${mensaje != null}" class="mensaje" align="center">
+		 <p class="mostrar_mensaje" th:text="${mensaje}"></p>
 	</div>
 	<input type="button" class="icono_return" onclick="history.back()"
 		name="volver_atras" value="&#8617;" />

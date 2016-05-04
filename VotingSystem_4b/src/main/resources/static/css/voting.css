@@ -115,7 +115,8 @@ a.tooltip:hover span {
 }
 
 .boton_add_colegio, .boton_colegio, .boton_login, .boton_change,
-	.boton_save, .boton_add_referendum, .boton_add_otras_elecciones {
+	.boton_save, .boton_add_referendum, .boton_add_otras_elecciones,
+	.boton_fin_votos {
 	font-size: 17px;
 	text-decoration: none;
 	padding: 0.50em 1.10em 0.50em 1.50em;
@@ -136,7 +137,8 @@ a:-webkit-any-link {
 
 button.boton_votar:hover, button.boton_modificar:hover, a.boton_add_colegio:hover,
 	button.boton_colegio:hover, button.boton_login:hover, button.boton_change:hover,
-	button.boton_save:hover, a.boton_add_referendum:hover, a.boton_add_otras_elecciones:hover
+	button.boton_save:hover, a.boton_add_referendum:hover, a.boton_add_otras_elecciones:hover,
+	button.boton_fin_votos:hover
 	{
 	background: #310B54;
 }

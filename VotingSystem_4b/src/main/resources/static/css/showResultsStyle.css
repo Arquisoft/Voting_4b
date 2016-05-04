@@ -34,7 +34,7 @@ header {
 }
 
 #pieResultados {
-	padding-left: 25%;
+	padding-left: 16%;
 }
 
 #resultadoTexto {
@@ -42,4 +42,19 @@ header {
     font: 30px Helvetica, Arial, Sans-Serif;
     text-align: center;
     vertical-align: middle;
+}
+
+.icono_return {
+	outline: none;
+	border: none;
+	margin-left: 5%;
+}
+
+input[name=volver_atras] {
+	color: #fff;
+	font-size: 70px;
+	background: transparent;
+	margin-top: -5rem;
+	margin-right: 40rem;
+	cursor: pointer;
 }
