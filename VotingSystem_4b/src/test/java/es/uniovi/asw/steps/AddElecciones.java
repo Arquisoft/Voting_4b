@@ -45,7 +45,7 @@ public class AddElecciones {
 		
 		Date fechaInicio=null;
 		Date fechaFin = null;
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd hh:mm");
 		fechaInicio = formato.parse(arg3);
 		fechaFin = formato.parse(arg4);
 
