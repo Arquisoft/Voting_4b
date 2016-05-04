@@ -32,12 +32,8 @@ import es.uniovi.asw.DBManagement.modelo.Referendum;
 import es.uniovi.asw.DBManagement.modelo.ServerResponse;
 import es.uniovi.asw.DBManagement.modelo.Voter;
 import es.uniovi.asw.DBManagement.modelo.Voto;
-import es.uniovi.asw.DBManagement.repository.ColegioRepository;
-import es.uniovi.asw.DBManagement.repository.EleccionesRepository;
-import es.uniovi.asw.DBManagement.repository.VoterRepository;
 import es.uniovi.asw.DBManagement.repository.VotoRepository;
 import es.uniovi.asw.Election.Election;
-import es.uniovi.asw.Vote.InsertVote;
 import es.uniovi.asw.Vote.Vote;
 import es.uniovi.asw.VoterAccess.VoterAcces;
 import groovy.lang.Grab;
@@ -426,10 +422,15 @@ public class Main {
 					finVotos=true;
 					model.addAttribute("mensaje",
 							"Se ha finalizado la llegada de votos");
-					calculate.recalcularYActualizarObjetosWeb();
-					if (calculate.getType().getTipo().nVoto() != votoRepository.count()) {
-						LOG.error("¡Numero de votos no coincidente!");
+					try{
+						calculate.recalcularYActualizarObjetosWeb();
+						if (calculate.getType().getTipo().nVoto() != votoRepository.count()) {
+							LOG.error("¡Numero de votos no coincidente!");
+						}
+					}catch(NullPointerException ex){
+						LOG.error("No hay votos suficientes");
 					}
+					
 					return "elecciones_tipo";
 				}else{
 					model.addAttribute("mensaje",

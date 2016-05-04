@@ -26,7 +26,7 @@ h1 {
     font: 30px Helvetica, Arial, Sans-Serif;
     text-align: center;
     vertical-align: middle;
-    margin-top: -35px;
+    margin-top: -20px;
 }
 
 header {
@@ -34,10 +34,11 @@ header {
 }
 
 #pieResultados {
-	padding-left: 16%;
+	margin-left: 200px;
 }
 
 #resultadoTexto {
+	margin-top: -55px;
 	color: white;
     font: 30px Helvetica, Arial, Sans-Serif;
     text-align: center;
