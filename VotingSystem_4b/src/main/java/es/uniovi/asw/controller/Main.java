@@ -426,6 +426,10 @@ public class Main {
 					finVotos=true;
 					model.addAttribute("mensaje",
 							"Se ha finalizado la llegada de votos");
+					calculate.recalcularYActualizarObjetosWeb();
+					if (calculate.getType().getTipo().nVoto() != votoRepository.count()) {
+						LOG.error("¡Numero de votos no coincidente!");
+					}
 					return "elecciones_tipo";
 				}else{
 					model.addAttribute("mensaje",
