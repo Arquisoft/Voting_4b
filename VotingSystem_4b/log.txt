@@ -1672,3 +1672,9 @@ Tue May 03 18:37:50 CEST 2016 INFO La carta en formato PDF para este usuario ya 
 Tue May 03 18:37:50 CEST 2016 INFO La carta en formato TXT para este usuario ya existe
 Tue May 03 18:37:50 CEST 2016 INFO La carta en formato PDF para este usuario ya existe
 Tue May 03 18:37:50 CEST 2016 INFO La carta en formato TXT para este usuario ya existe
+Wed May 04 10:06:38 CEST 2016 INFO La carta en formato PDF para este usuario ya existe
+Wed May 04 10:06:38 CEST 2016 INFO La carta en formato TXT para este usuario ya existe
+Wed May 04 10:06:38 CEST 2016 INFO La carta en formato PDF para este usuario ya existe
+Wed May 04 10:06:38 CEST 2016 INFO La carta en formato TXT para este usuario ya existe
+Wed May 04 10:06:38 CEST 2016 INFO La carta en formato PDF para este usuario ya existe
+Wed May 04 10:06:38 CEST 2016 INFO La carta en formato TXT para este usuario ya existe

@@ -7,10 +7,9 @@ import org.springframework.stereotype.Component;
 import es.uniovi.asw.DBManagement.modelo.ServerResponse;
 import es.uniovi.asw.DBManagement.modelo.Voter;
 import es.uniovi.asw.DBManagement.repository.VoterRepository;
-import es.uniovi.asw.Vote.ChangeVoter;
 
 @Component("voterAccess")
-public class VoterAcces implements GetVoterInfo, ChangePassword, ChangeVoter {
+public class VoterAcces implements GetVoterInfo, ChangePassword {
 
 	@Autowired
 	private VoterRepository repository;
@@ -29,7 +28,7 @@ public class VoterAcces implements GetVoterInfo, ChangePassword, ChangeVoter {
 		if (user == null) {
 			throw new ResourceNotFoundException("El usuario no se encuentra en la base de datos");
 		} else {
-			return new ServerResponse(user.getNombre(), user.getNif(), user.getEmail(), user.getCodigoColegio()+"");
+			return new ServerResponse(user.getNombre(), user.getNif(), user.getEmail(), user.getCodigoColegio() + "");
 		}
 	}
 
@@ -40,15 +39,6 @@ public class VoterAcces implements GetVoterInfo, ChangePassword, ChangeVoter {
 		user.setClave(newPassword);
 		this.repository.save(user);
 
-	}
-
-	@Override
-	public void updateEjercioDerechoAlVoto(boolean ejercioDerechoAlVoto,
-			String usuario) {
-		Voter voter = this.repository.findByUsuario(usuario);
-		voter.setEjercioDerechoAlVoto(ejercioDerechoAlVoto);
-		this.repository.save(voter);
-		
 	}
 
 }
