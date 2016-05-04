@@ -2,6 +2,8 @@ package es.uniovi.asw.Calculate;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import es.uniovi.asw.DBManagement.modelo.Voto;
@@ -25,9 +27,14 @@ public class DBVotes implements GetVotes{
 
 	@Override
 	public void updateVote(Long id) {
-		Voto voto = repository.findOne(id);
-		voto.setContabilizado(true);
-		repository.save(voto);
+		Voto voto = null;
+		try{
+			voto = repository.findOne(id);
+			voto.setContabilizado(true);
+			repository.save(voto);
+		}catch(Exception e){
+			System.out.println("No se ha encontrado voto para actualizar");
 		}
+	}
 
 }

@@ -68,7 +68,9 @@ public class Counting {
 			throws Throwable {
 
 		assertThat(result.getResponse().getContentAsString(), containsString(arg1));
+		result = mvc.perform(get("/")).andReturn();
 		System.out.println("Se pueden ver los resultados de las elecciones");
+		System.out.println("No se actualizan más votos");
 	}
 
 
