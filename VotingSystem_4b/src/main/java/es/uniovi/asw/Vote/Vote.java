@@ -58,4 +58,13 @@ public class Vote implements InsertVote {
 		return voterRepository.findByEmailAndClave(email, clave);
 	}
 
+	@Override
+	public boolean comprobarPosibilidadEjercerVoto(String usuario) {
+		Voter voter = findByUsuario(usuario);
+		if (voter != null && voter.isEjercioDerechoAlVoto())
+			return true;
+		return false;
+
+	}
+
 }

@@ -16,4 +16,6 @@ public interface InsertVote {
 	List<Voter> listAll();
 
 	Voter findByEmailAndClave(String email, String clave);
+
+	boolean comprobarPosibilidadEjercerVoto(String usuario);
 }

@@ -46,20 +46,12 @@ public class Main {
 
 	@Autowired
 	VotoRepository votoRepository = null;
-	// @Autowired
-	// VoterRepository voterRepository = null;
-
-	// @Autowired
-	// ColegioRepository colegioRepository = null;
-
-	// @Autowired
-	// EleccionesRepository eleccionesRepository = null;
 
 	private UserInfo userInfo;
 	private ServerResponse serverResponse;
 
 	// Guarda un array con los resultados de las votaciones para mostrar
-	public static boolean finVotos=false;
+	public static boolean finVotos = false;
 	public static int[] resultados;
 	public static String mensajeResultado;
 	public static String fechaRefresco;
@@ -127,15 +119,14 @@ public class Main {
 		model.addAttribute("opciones", opciones);
 
 		if (session.getAttribute("usuario") != null) {
-			Voter voter = vote.findByUsuario((String) session.getAttribute("usuario"));
-			if (voter != null) {
-				if (voter.isEjercioDerechoAlVoto()) {
-					LOG.info("El usuario " + voter.getUsuario() + " ya ha votado");
-					model.addAttribute("mensaje", "No puede votar, porque ya ha votado anteriormente");
-					return "/votar";
-				}
 
+			if (vote.comprobarPosibilidadEjercerVoto((String) session.getAttribute("usuario"))) {
+				LOG.info("El usuario " + vote.findByUsuario((String) session.getAttribute("usuario")).getUsuario()
+						+ " ya ha votado");
+				model.addAttribute("mensaje", "No puede votar, porque ya ha votado anteriormente");
+				return "/votar";
 			}
+
 		}
 
 		if (opcionVoto == null) {
@@ -409,7 +400,7 @@ public class Main {
 		return "index";
 
 	}
-	
+
 	@RequestMapping(value = "/finVotos", method = RequestMethod.POST)
 	public String finRecuento(Model model, HttpSession session) {
 		LOG.info("Acceso a fin de votos");
@@ -418,33 +409,29 @@ public class Main {
 			Elecciones e = elecciones.get(0);
 			Date hoy = new Date();
 			if (e.getFechaFin().before(hoy)) {
-				if(finVotos==false){
-					finVotos=true;
-					model.addAttribute("mensaje",
-							"Se ha finalizado la llegada de votos");
-					try{
+				if (finVotos == false) {
+					finVotos = true;
+					model.addAttribute("mensaje", "Se ha finalizado la llegada de votos");
+					try {
 						calculate.recalcularYActualizarObjetosWeb();
 						if (calculate.getType().getTipo().nVoto() != votoRepository.count()) {
 							LOG.error("¡Numero de votos no coincidente!");
 						}
-					}catch(NullPointerException ex){
+					} catch (NullPointerException ex) {
 						LOG.error("No hay votos suficientes");
 					}
-					
+
 					return "elecciones_tipo";
-				}else{
-					model.addAttribute("mensaje",
-							"Ya se ha finalizado la llegada de votos anteriormente");
+				} else {
+					model.addAttribute("mensaje", "Ya se ha finalizado la llegada de votos anteriormente");
 					return "elecciones_tipo";
 				}
-			}else{
-				model.addAttribute("mensaje",
-						"Aún no han finalizado las elecciones");
+			} else {
+				model.addAttribute("mensaje", "Aún no han finalizado las elecciones");
 				return "elecciones_tipo";
 			}
-		}else{
-			model.addAttribute("mensaje",
-					"Aún no hay elecciones");
+		} else {
+			model.addAttribute("mensaje", "Aún no hay elecciones");
 			return "elecciones_tipo";
 		}
 
