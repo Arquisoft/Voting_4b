@@ -10,6 +10,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import es.uniovi.asw.WebObserver.WebObserver;
 import es.uniovi.asw.controller.Main;
 
 public class WebObserverTest {

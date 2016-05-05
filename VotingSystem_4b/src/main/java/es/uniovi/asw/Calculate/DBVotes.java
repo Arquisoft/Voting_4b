@@ -2,8 +2,6 @@ package es.uniovi.asw.Calculate;
 
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import es.uniovi.asw.DBManagement.modelo.Voto;

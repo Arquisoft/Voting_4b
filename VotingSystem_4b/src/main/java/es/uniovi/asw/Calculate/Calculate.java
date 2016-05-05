@@ -1,7 +1,7 @@
 package es.uniovi.asw.Calculate;
 
 import es.uniovi.asw.Calculate.voters.VotersType;
-import es.uniovi.asw.WebResults.WebObserver;
+import es.uniovi.asw.WebObserver.WebObserver;
 
 public class Calculate {
 
