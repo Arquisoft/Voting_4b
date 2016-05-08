@@ -41,25 +41,29 @@ public class MainControllerTest {
 
   
   @Test
-  public void testVotarSinElecciones() throws Exception {
-    mvc.perform(get("/votar")).andExpect(status().isOk()).andExpect(content().string(containsString("Aún no se han añadido elecciones.Por favor, espere a unas nuevas elecciones.")));
+  public void testVotarSinEleccionesSinInicio() throws Exception {
+	//mvc.perform(post("/WelcomePage").param("field1", "pamela@gmail.com").param("field2", "patata")).andExpect(status().isOk()).andExpect(content().string(containsString("Voting System")));
+    mvc.perform(get("/votar")).andExpect(status().isOk()).andExpect(content().string(containsString("Se ha producido un error, por favor, inténtelo de nuevo.")));
   }
   
   
   @Test
-  public void testModificar() throws Exception {
-    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("Crear elecciones")));
-    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("Nombre de las elecciones")));
-    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("NUEVO COLEGIO ELECTORAL")));
-    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("CREAR")));
+  public void testCrearEleccionesSinInicioSesion() throws Exception {
+	  
+	//mvc.perform(post("/WelcomePage").param("field1", "junta@gmail.com").param("field2", "junta")).andExpect(status().isOk()).andExpect(content().string(containsString("Tipo de elecciones")));
+    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("Se ha producido un error, por favor, inténtelo de nuevo.")));
+//    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("Nombre de las elecciones")));
+//    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("NUEVO COLEGIO ELECTORAL")));
+//    mvc.perform(get("/modificar_elecciones")).andExpect(status().isOk()).andExpect(content().string(containsString("CREAR")));
   }
   
   @Test
-  public void testColegio() throws Exception {
-    mvc.perform(get("/add_colegio")).andExpect(status().isOk()).andExpect(content().string(containsString("Nuevo colegio electoral")));
-    mvc.perform(get("/add_colegio")).andExpect(status().isOk()).andExpect(content().string(containsString("Circunscripción")));
-    mvc.perform(get("/add_colegio")).andExpect(status().isOk()).andExpect(content().string(containsString("Comunidad Autónoma")));
-    mvc.perform(get("/add_colegio")).andExpect(status().isOk()).andExpect(content().string(containsString("AÑADIR")));
+  public void testAddColegioSinInicio() throws Exception {
+	//mvc.perform(post("/WelcomePage").param("field1", "junta@gmail.com").param("field2", "junta")).andExpect(status().isOk()).andExpect(content().string(containsString("Tipo de elecciones")));
+    mvc.perform(get("/add_colegio")).andExpect(status().isOk()).andExpect(content().string(containsString("Se ha producido un error, por favor, inténtelo de nuevo.")));
+//    mvc.perform(get("/add_colegio")).andExpect(status().isOk()).andExpect(content().string(containsString("Circunscripción")));
+//    mvc.perform(get("/add_colegio")).andExpect(status().isOk()).andExpect(content().string(containsString("Comunidad Autónoma")));
+//    mvc.perform(get("/add_colegio")).andExpect(status().isOk()).andExpect(content().string(containsString("AÑADIR")));
   }
   
 
