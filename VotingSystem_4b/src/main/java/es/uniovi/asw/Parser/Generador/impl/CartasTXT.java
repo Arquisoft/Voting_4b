@@ -12,7 +12,7 @@ import es.uniovi.asw.Reportwriter.impl.WriterReportImpl;
 /**
  * Clase que genera las cartas de los votantes con su usuario y su clave
  * 
- * @author Adrian
+
  */
 public class CartasTXT implements GeneradorCartas {
 		

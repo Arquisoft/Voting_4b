@@ -33,8 +33,6 @@ public class Voter {
 	 * @param nombre y apellidos del votante
 	 * @param email Correo electónico del votante
 	 * @param nif Número de identificación fiscal del votante
-	 * @param email Correo electrónico del votante
-	 * @param nif Número de identificación fiscal del votante
 	 * @param codigoColegio Código del colegio electoral al que tiene que acudir el votante
 	 * @param usuario Nombre de usuario del votante para acceder al sistema
 	 * @param clave Clave del votante para acceder al sistema

@@ -22,7 +22,7 @@ import es.uniovi.asw.Reportwriter.impl.WriterReportImpl;
 
 /**
  * 
- * @author Ana
+ *
  *Clase que lee el fichero excel con los datos de los ciudadanos
  */
 public class LeerFicheroXlsx  implements ReadCensus, Insert{
@@ -125,7 +125,7 @@ public class LeerFicheroXlsx  implements ReadCensus, Insert{
 	/**
 	 * Método que comprueba el txt para saber si ya existe una clave para el usuario
 	 * @param nif
-	 * @return
+	 * @return devuelve la clave del usuario
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
@@ -154,7 +154,7 @@ public class LeerFicheroXlsx  implements ReadCensus, Insert{
 	/**
 	 * Método que genera una contraseña aleatoria.
 	 * @param votante
-	 * @return
+	 * @return devuelve la contraseña que se genera
 	 */
 	private String generarPass(Voter votante) {
 		
@@ -194,7 +194,7 @@ public class LeerFicheroXlsx  implements ReadCensus, Insert{
 	
 	/**
 	 * Método que devuelve una colección de votantes.
-	 * @return
+	 * @return devuelve la lista de votantes
 	 */
 	public  List<Voter> getVotantes(){
 		return votantes;

@@ -315,7 +315,7 @@ public class Main {
 	/**
 	 * Método que comprueba si ya existe un colegio con el mismo codigo
 	 * 
-	 * @return
+	 * @return devuelve true si existe un colegio con el mismo codigo, false en caso contrario
 	 */
 	private boolean existeColegio(int cod) {
 		List<ColegioElectoral> colegios = election.listColegios();
